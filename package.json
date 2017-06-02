@@ -65,6 +65,6 @@
   "eslintConfig": {
     "extends": "trails"
   },
-  "repository": "agustim/fiberfy-server",
+  "repository": "guifi/fiberfy-server",
   "license": "MIT"
 }

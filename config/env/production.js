@@ -3,6 +3,24 @@
 const winston = require('winston')
 
 module.exports = {
+  database: {
+    stores: {
+
+      /**
+       * Define a store called "prod" which uses SQLite3 to persist data.
+       *
+       * Production database
+       */
+      prod: {
+        adapter: require('waterline-sqlite3'),
+        migrate: 'safe'
+      }
+    },
+    models: {
+      defaultStore: 'prod',
+      migrate: 'safe'
+    }
+  },
 
   trailpack: {
     disabled: [

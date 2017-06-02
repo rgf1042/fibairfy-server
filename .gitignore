@@ -2,3 +2,4 @@ node_modules
 coverage
 .tmp/**
 public/js/bundle.js
+*.log
