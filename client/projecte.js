@@ -38,16 +38,21 @@ Projecte.prototype.save = function (){
 };
 Projecte.prototype.delete = function(){
   var that = this;
-  strUrl = this.map_parent.serverUrl + "/project";
-  console.log('API call: ' + strUrl);
-  if (this.id == 0 || this.id == null) {
-    console.log("Can not delete project without id.");
-  } else {
-    $.delete( strUrl+"/"+this.id, JSON.stringify({ "id": this.id }))
-      .done(function( data ) {
-        that.map_parent.notify("Delete!");
-      }, "json");
-  }
+  this.map_parent.question("Voleu esborrar el projecte?", function(type) {
+    //Callback
+    if (type === "button_yes") {
+      strUrl = that.map_parent.serverUrl + "/project";
+      console.log('API call: ' + strUrl);
+      if (that.id == 0 || that.id == null) {
+        console.log("Can not delete project without id.");
+      } else {
+        $.delete( strUrl+"/"+that.id, JSON.stringify({ "id": that.id }))
+          .done(function( data ) {
+            that.map_parent.notify("Delete!");
+          }, "json");
+      }
+    }
+  });
 };
 
 module.exports = Projecte;

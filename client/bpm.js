@@ -797,6 +797,17 @@ Mapa.prototype.notify = function (text){
     $(".notify").text("");
   }, 1000);
 };
+
+Mapa.prototype.question = function (text, callback){
+  $(".question .message").text(text);
+  $(".question").show();
+  $(".question button").click(function() {
+      $(".question .message").text("");
+      $(".question").hide();
+      callback($(this).attr('class'));
+  });
+}
+
 Mapa.prototype.getSite = function (id){
   for(idx_site in this.sites){
     site = this.sites[idx_site];

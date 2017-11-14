@@ -3,3 +3,4 @@ coverage
 .tmp/**
 public/js/bundle.js
 *.log
+INSTALLED
