@@ -4,3 +4,4 @@ coverage
 public/js/bundle.js
 *.log
 INSTALLED
+package-lock.json

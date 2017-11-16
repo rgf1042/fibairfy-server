@@ -38,7 +38,7 @@ Projecte.prototype.save = function (){
 };
 Projecte.prototype.delete = function(){
   var that = this;
-  this.map_parent.question("Voleu esborrar el projecte?", function(type) {
+  this.map_parent.question("Voleu esborrar el projecte " + this.name + "?", function(type) {
     //Callback
     if (type === "button_yes") {
       strUrl = that.map_parent.serverUrl + "/project";
@@ -49,6 +49,8 @@ Projecte.prototype.delete = function(){
         $.delete( strUrl+"/"+that.id, JSON.stringify({ "id": that.id }))
           .done(function( data ) {
             that.map_parent.notify("Delete!");
+            // We reload projects
+            that.map_parent.loadProjects();
           }, "json");
       }
     }

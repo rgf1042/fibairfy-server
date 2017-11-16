@@ -801,6 +801,9 @@ Mapa.prototype.notify = function (text){
 Mapa.prototype.question = function (text, callback){
   $(".question .message").text(text);
   $(".question").show();
+  $('html, body').animate({
+      scrollTop: $(".question").offset().top
+    }, 1000);
   $(".question button").click(function() {
       $(".question .message").text("");
       $(".question").hide();
