@@ -1,0 +1,252 @@
+doctype html
+html(lang="ca")
+  head
+    title= fiberfy
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel='stylesheet', href='css/leaflet.css')
+    //if lte IE 8
+      link(rel='stylesheet', href='css/leaflet.ie.css')
+    link(rel='stylesheet', href='css/leaflet-search.css')
+    link(rel='stylesheet', href='css/responsive.min.css')
+    link(rel='stylesheet', href='css/style.css')
+
+  body
+    #map-group
+      nav#civil.menu
+        ul.active
+          li
+            a#make_site Crea Lloc
+          li
+            a#make_section Crea Tram
+          li
+            a#view_infrastructure Cablejat
+          li
+            a#projects_manager Projectes
+          li
+            a.tiles Enrajolat
+          li
+            a#input_output IO
+        a#nav_responsive.toggle-nav
+          | ☰
+          label
+      nav#infra.menu.hide
+        ul.active
+          li
+            a#make_box Crea Caixa
+          li
+            a#make_fiber Tira fibra
+          li
+            a#view_obracivil Obra Civil
+          li
+            a.tiles Enrajolat
+        a#nav_responsive.toggle-nav
+          | ☰
+          label
+      #map
+    // config
+    #form-project-group.form-project-group.second-level.hide
+      #form-project
+        nav.menu
+          ul.active
+            li
+              a.back_map Torna Mapa
+        .config
+          .row
+            .col-s-12
+              .notify
+              div(hidden class='question')
+                span.message
+                button.button_yes Si
+                button.button_no No
+          .row
+            .col-s-12
+              h4 Projectes
+              #list-projects
+          .row
+            .col-s-1
+              label(for='project-name') Nou Projecte
+            .col-s-8
+              input#project-name(name='project-name')
+            .col-s-2
+              button#project-add Add
+    // site fusion
+    #zoom-site-fusion-group.zoom-fusion-group.second-level.hide
+      #zoom-site-fusion
+        nav.menu
+          ul.active
+            li
+              a.back_map Torna Mapa
+            li
+              a.back_site Torna Site
+            li
+              a#fusion_graph Grafic Fusió
+        .row
+          .col-s-12
+            .notify
+        .site-fusion
+    // site
+    #zoom-site-group.zoom-group.second-level.hide
+      #zoom-site
+        nav.menu
+          ul.active
+            li
+              a.back_map Torna Mapa
+        .site
+          .row
+            .col-s-12
+              .notify
+          .row
+            .col-s-6
+              label(for='site-name') Name
+              input#site-name
+              label(for='site-latitude') Latituded
+              input#site-latitude
+              label(for='site-longitude') Longitude
+              input#site-longitude
+              label(for='site-type') Tipus
+              select#site-type
+            .col-s-6
+              label(for='site-status') Status
+              input#site-status
+              label(for='site-observation') Observation
+              textarea#site-observation
+              button#site-update Update
+              button#site-delete Delete
+    // site fusion
+    #zoom-fusion-graph-group.zoom-fusion-graph-group.third-level.hide
+      #zoom-fusion-graph
+        nav.menu
+          ul.active
+            li
+              a.back_map Torna Mapa
+            li
+              a.back_site Torna Site
+            li
+              a#back_fusion Torna Fusions
+        .row
+          .col-s-12
+            .notify
+        canvas#fusionGraph(resize='')
+    // box
+    #zoom-box-group.zoom-group.second-level.hide
+      #zoom-box
+        nav.menu
+          ul.active
+            li
+              a.back_map Torna Mapa
+        #box-notify
+          .row
+            .col-s-12
+              .notify
+        .box
+        #box-fusio
+          .row
+            .col-s-2
+              button#box-fusio.btn Fusio
+            .col-s-10
+        #box-add
+          .row
+            .col-s-2
+              button#box-new Nou
+            .col-s-10
+
+
+    // path
+    #zoom-path-group.zoom-group.second-level.hide
+      #zoom-path
+        nav.menu
+          ul.active
+            li
+              a.back_map Torna Mapa
+        .path
+          .row
+            .col-s-12
+              .notify
+          .row
+            .col-s-6
+                label Name :
+                input#path-name
+                label First Box :
+                input#path-first-site
+                label End Box :
+                input#path-end-site
+                label(for='path-type') Tipus
+                select#path-type
+            .col-s-6
+                label Intermedial :
+                textarea#path-intermedial
+                label Observation :
+                textarea#path-observations
+          .row
+            .col-s-12
+              #div-path-save.button
+                button#path-update Update
+                button#path-delete Delete
+
+    // fiber
+    #zoom-fiber-group.zoom-group.second-level.hide
+      #zoom-fiber
+        nav.menu
+          ul.active
+            li
+              a.back_map Torna Mapa
+        .fiber
+          .row
+            .col-s-12
+              .notify
+          .row
+            .col-s-6
+                label Name :
+                input#fiber-name
+                label First Box :
+                input#fiber-first-site
+                label End Box :
+                input#fiber-end-site
+                label Template :
+                select#fiber-template
+            .col-s-6
+                label Intermedial :
+                textarea#fiber-intermedial
+                label Observation :
+                textarea#fiber-observations
+          .row
+            .col-s-12
+              #div-fiber-save.button
+                button#fiber-update Update
+                button#fiber-delete Delete
+          .row
+            .col-s-12
+              #div-fiber-colors
+                label Colors :
+                textarea#fiber-colors
+          .row
+            .col-s-12
+              #div-fiber-colors-gui
+                label Colors :
+                textarea#fiber-colors-gui
+
+
+    // Input-Output
+    #zoom-io-group.zoom-group.second-level.hide
+      #zoom-io
+        nav.menu
+          ul.active
+            li
+              a.back_map Torna Mapa
+        .io.box
+          .row
+            .col-s-12
+              .notify
+          .row
+            .col-s-6
+                label Input :
+                textarea(rows='30')#input-observation
+                button#import-button Import
+            .col-s-6
+                label Output :
+                a#export-button Download
+
+    script(src='js/bundle.js')
+    script(src='js/responsive.min.js')

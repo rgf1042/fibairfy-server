@@ -24,14 +24,27 @@
     "sails-disk": "~0.10.9"
   },
   "scripts": {
-    "debug": "node debug app.js",
-    "start": "node app.js"
+    "test": "eslint --ignore-pattern '/client/' --ignore-pattern '/assets/' --fix . && eslint --no-eslintrc -c client/eslintrc.json client/. && mocha",
+    "build": "cd client && browserify app.js -o ../assets/js/bundle.js",
+    "build-live": "cd client && watchify *.js -o ../assets/js/bundle.js -dv"
   },
   "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/roger/fiberfy-server.git"
-  },
+  "repository": "guifi/fiberfy-server",
   "author": "roger",
-  "license": ""
+  "license": "MIT",
+  "devDependencies": {
+    "jade": "^1.11.0",
+    "browserify": "^13.0.1",
+    "eslint": "^2.8",
+    "eslint-config-trails": "latest",
+    "geojson": "^0.4.0",
+    "jquery-browserify": "^1.8.1",
+    "leaflet": "^0.7.7",
+    "leaflet-search": "^2.7.0",
+    "mocha": "^2.4",
+    "paper": "^0.9.25",
+    "supertest": "^1.2",
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.7.0"
+  }
 }
