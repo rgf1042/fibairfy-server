@@ -36,9 +36,8 @@ module.exports.routes = {
     view: 'index'
   },
 
-  '/map': {
-    view: 'map'
-  }
+  '/map':  'MapController.showMyView',
+
 
   /***************************************************************************
   *                                                                          *
@@ -49,5 +48,6 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+  'POST /auth/login': 'AuthController.login'
 
 };

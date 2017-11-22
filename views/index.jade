@@ -39,6 +39,8 @@ html(lang='ca')
             if (d.flag) {
               // Redirect map
               window.location.replace("/map");
+              localStorage.setItem('token', d.token);
+
             } else {
               var msg = $('#message')
               msg.text(d.message);
