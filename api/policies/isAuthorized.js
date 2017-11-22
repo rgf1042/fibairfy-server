@@ -25,7 +25,7 @@ module.exports = function (req, res, next) {
     // We delete the token from param to not mess with blueprints
     delete req.query.token;
   } else {
-    return res.view('index');
+    return res.json(401, {err: 'No Authorization header was found'});
   }
 
   jwToken.verify(token, function (err, token) {
