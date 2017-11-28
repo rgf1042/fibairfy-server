@@ -48,6 +48,18 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-  'POST /auth/login': 'AuthController.login'
+  'POST /auth/login': 'AuthController.login',
+
+  /* Site */
+
+  'GET /api/v1/site/:id/boxes': 'SiteController.getBoxes',
+
+  'GET /api/v1/site/:id/fusion': 'SiteController.getFusion',
+
+  'GET /api/v1/site/:id/fibers': 'SiteController.getFibers',
+
+  /* Fusion */
+
+  'DELETE /api/v1/fusion': 'FusionController.destroyByParameters'
 
 };
