@@ -313,7 +313,7 @@ function Mapa(divMap){
 
   // Dibuix del Mapa
   this.map = L.map(divMap, {
-    scrollWheelZoom: false
+    scrollWheelZoom: true
   });
 
 
@@ -377,7 +377,15 @@ function Mapa(divMap){
   this.map.setView(L.latLng(this.project_default_latitude,this.project_default_longitude), this.project_default_zoom);
 
   // Event de click
-  this.map.on('click', function(e) { that.onClick(e); });
+  this.map.on('click', function(e) {
+     that.onClick(e);
+     if (that.map.scrollWheelZoom.enabled()) {
+       that.map.scrollWheelZoom.disable();
+     }
+     else {
+       that.map.scrollWheelZoom.enable();
+     }
+   });
 
   this.tileLayer();
 
