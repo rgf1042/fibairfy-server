@@ -369,11 +369,21 @@ Mapa.prototype.drawProjects = function (){
   });
   $('.delete-project-button').on('click', function(e) {
     var project = that.findProject($('#'+e.target.id).data("id"));
+    // We clean possible previous structures
+    that.active_path = null;
+    this.active_site = null;
+    that.active_fiber = null;
+
     project.delete();
     that.loadProjects();
   });
   $('.active-project-button').on('click', function(e) {
     var project = that.findProject($('#'+e.target.id).data("id"));
+    // We clean possible previous structures
+    that.active_path = null;
+    that.active_site = null;
+    that.active_fiber = null;
+
     that.active_project = project;
     that.loadProjects();
   });
