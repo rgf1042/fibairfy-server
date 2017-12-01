@@ -16,16 +16,16 @@ module.exports = {
 
     User.findOne({username: username}, function (message, user) {
       if (!user) {
-        return res.json(401, {flag: false, message: 'invalid username or password'});
+        return res.json({flag: false, message: 'invalid username or password'});
       }
 
       User.comparePassword(password, user, function (message, valid) {
         if (message) {
-          return res.json(403, {flag: false, message: 'forbidden'});
+          return res.json({flag: false, message: 'forbidden'});
         }
 
         if (!valid) {
-          return res.json(401, {flag: false, message: 'invalid username or password'});
+          return res.json({flag: false, message: 'invalid username or password'});
         } else {
           res.json({
             flag: true,
