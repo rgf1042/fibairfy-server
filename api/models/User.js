@@ -7,6 +7,7 @@
  var bcrypt = require('bcrypt');
 
 module.exports = {
+  tableName: 'fiberfy_users',
   attributes: {
     username: {
       type: 'string',

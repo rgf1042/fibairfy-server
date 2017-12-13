@@ -2,8 +2,9 @@
  * @module Fiber
  * @description Fiber between Site, and intermedial == site_id intermedial.
  */
- 
+
 module.exports = {
+  tableName: 'fiberfy_fibers',
   attributes: {
     name: {
       type: 'string'
@@ -15,7 +16,7 @@ module.exports = {
       model: 'Site'
     },
     intermedial: {
-      type: 'string'
+      type: 'text'
     },
     colors: {
       type: 'string'
@@ -24,7 +25,7 @@ module.exports = {
       model: 'fiberTemplate'
     },
     observations: {
-      type: 'string'
+      type: 'text'
     },
     status: {
       type: 'string'

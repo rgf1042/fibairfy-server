@@ -4,6 +4,7 @@
  */
 
 module.exports = {
+  tableName: 'fiberfy_sites',
   attributes: {
     name: {
       type: 'string',
@@ -19,7 +20,7 @@ module.exports = {
       type: 'string'
     },
     observations: {
-      type: 'string'
+      type: 'text'
     },
     status: {
       type: 'string'

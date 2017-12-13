@@ -4,6 +4,7 @@
  */
 
 module.exports = {
+  tableName: 'fiberfy_boxes',
   attributes: {
     name: {
         type: 'string'
@@ -24,7 +25,7 @@ module.exports = {
       type: 'integer'
     },
     observations: {
-      type: 'string'
+      type: 'text'
     },
     status: {
       type: 'string'

@@ -4,6 +4,7 @@
  */
 
 module.exports = {
+  tableName: 'fiberfy_fibertemplates',
   attributes: {
     name: {
       type: 'string'

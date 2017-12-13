@@ -4,6 +4,7 @@
  */
 
 module.exports = {
+  tableName: 'fiberfy_fusions',
   attributes: {
     site: {
       model: 'Site'

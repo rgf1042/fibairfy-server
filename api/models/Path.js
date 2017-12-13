@@ -4,6 +4,7 @@
  */
 
 module.exports = {
+  tableName: 'fiberfy_paths',
   attributes: {
     name: {
       type: 'string'
@@ -15,13 +16,13 @@ module.exports = {
       model: 'Site'
     },
     intermedial: {
-      type: 'string'
+      type: 'text'
     },
     type: {
       type: 'string'
     },
     observations: {
-      type: 'string'
+      type: 'text'
     },
     status: {
       type: 'string'
