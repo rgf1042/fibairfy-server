@@ -17,7 +17,7 @@ module.exports = {
       type: 'string'
     },
     projects: {
-      collection: 'Project',
+      collection: 'ProjectOwnership',
       via: 'user'
     },
 

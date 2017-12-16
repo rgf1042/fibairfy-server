@@ -12,9 +12,6 @@ module.exports = {
     status: {
       type: 'string'
     },
-    user: {
-      model: 'User'
-    },
     latitude: {
       type: 'float'
     },
@@ -23,6 +20,10 @@ module.exports = {
     },
     zoom: {
       type: 'integer'
+    },
+    users: {
+      collection: 'ProjectOwnership',
+      via: 'project'
     }
   }
 };

@@ -57,8 +57,63 @@ module.exports.policies = {
   'AuthController': {
     '*': true // We dont need authorization here, allowing public access
   },
-  
+
   'MapController': {
     '*': true
+  },
+
+  // ACL
+  'BoxController': {
+    'create': ['isAuthorized','canWrite'],
+    'destroy': ['isAuthorized','canWrite'],
+    'update': ['isAuthorized','canWrite'],
+    'populate': ['isAuthorized','canWrite'],
+    'add': ['isAuthorized','canWrite'],
+    'remove': ['canWrite']
+  },
+
+  'FiberController': {
+    'create': ['isAuthorized','canWrite'],
+    'destroy': ['isAuthorized','canWrite'],
+    'update': ['isAuthorized','canWrite'],
+    'populate': ['isAuthorized','canWrite'],
+    'add': ['isAuthorized','canWrite'],
+    'remove': ['canWrite']
+  },
+
+  'FusionController': {
+    'create': ['isAuthorized','canWrite'],
+    'destroy': ['isAuthorized','canWrite'],
+    'update': ['isAuthorized','canWrite'],
+    'populate': ['isAuthorized','canWrite'],
+    'add': ['isAuthorized','canWrite'],
+    'remove': ['canWrite']
+  },
+
+  'PathController': {
+    'create': ['isAuthorized','canWrite'],
+    'destroy': ['isAuthorized','canWrite'],
+    'update': ['isAuthorized','canWrite'],
+    'populate': ['isAuthorized','canWrite'],
+    'add': ['isAuthorized','canWrite'],
+    'remove': ['canWrite']
+  },
+
+  'ProjectController': {
+    'create': ['isAuthorized','canWrite'],
+    'destroy': ['isAuthorized','canWrite'],
+    'update': ['isAuthorized','canWrite'],
+    'populate': ['isAuthorized','canWrite'],
+    'add': ['isAuthorized','canWrite'],
+    'remove': ['canWrite']
+  },
+
+  'SiteController': {
+    'create': ['isAuthorized','canWrite'],
+    'destroy': ['isAuthorized','canWrite'],
+    'update': ['isAuthorized','canWrite'],
+    'populate': ['isAuthorized','canWrite'],
+    'add': ['isAuthorized','canWrite'],
+    'remove': ['canWrite']
   }
 };

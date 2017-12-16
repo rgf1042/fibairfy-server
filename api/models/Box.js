@@ -30,9 +30,6 @@ module.exports = {
     status: {
       type: 'string'
     },
-    user: {
-      model: 'User'
-    },
 
     project: {
       model: 'Project'
