@@ -100,7 +100,7 @@ module.exports.policies = {
   },
 
   'ProjectController': {
-    'create': ['isAuthorized','canWrite'],
+    'create': ['isAuthorized'],
     'destroy': ['isAuthorized','canWrite'],
     'update': ['isAuthorized','canWrite'],
     'populate': ['isAuthorized','canWrite'],
