@@ -8,9 +8,9 @@
 module.exports = function (req, res, next) {
   var actionUtil = require('sails/lib/hooks/blueprints/actionUtil');
   var data = actionUtil.parseValues(req);
-
+  //data.id if it's ProjectModel
   ProjectOwnership.findOne({
-    project: data.project,
+    project: data.project || data.id,
     user: req.token.id
   }).exec(function (err, projectowner) {
     if (err) return res.negotiate(err);
