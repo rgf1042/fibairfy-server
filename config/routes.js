@@ -50,6 +50,10 @@ module.exports.routes = {
   ***************************************************************************/
   'POST /auth/login': 'AuthController.login',
 
+  'POST /auth/loginHTML': 'AuthController.loginHTML',
+
+  'POST /auth/logoutHTML': 'AuthController.logoutHTML',
+
   /* Site */
 
   'GET /api/v1/site/:id/boxes': 'SiteController.getBoxes',

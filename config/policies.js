@@ -58,10 +58,6 @@ module.exports.policies = {
     '*': true // We dont need authorization here, allowing public access
   },
 
-  'MapController': {
-    '*': true
-  },
-
   // ACL
   'BoxController': {
     'create': ['isAuthorized','canWrite'],

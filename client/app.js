@@ -47,10 +47,10 @@ jQuery.each( [ 'put', 'delete', 'post', 'get' ], function( i, method ) {
 });
 
 //Set tokens for every request ? testing
-$.ajaxPrefilter(function( options ) {
+/*$.ajaxPrefilter(function( options ) {
     if ( !options.beforeSend) {
         options.beforeSend = function (xhr) {
             xhr.setRequestHeader('Authorization', 'Bearer ' +  localStorage.getItem('token'));
         }
     }
-});
+});*/

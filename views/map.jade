@@ -71,6 +71,14 @@ html(lang="ca")
               input#project-name(name='project-name')
             .col-s-2
               button#project-add Add
+          .row
+            .col-s-12
+              h4 Usuari
+          .row
+            .col-s-1
+              form(name='form-logout',action='/auth/logoutHTML',method='post')
+                button#submit(value='Logout') Logout
+            
     // site fusion
     #zoom-site-fusion-group.zoom-fusion-group.second-level.hide
       #zoom-site-fusion

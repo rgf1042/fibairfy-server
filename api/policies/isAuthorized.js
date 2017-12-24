@@ -7,7 +7,6 @@
 
 module.exports = function (req, res, next) {
   var token;
-
   if (req.headers && req.headers.authorization) {
     var parts = req.headers.authorization.split(' ');
     if (parts.length == 2) {
@@ -24,7 +23,11 @@ module.exports = function (req, res, next) {
     token = req.param('token');
     // We delete the token from param to not mess with blueprints
     delete req.query.token;
-  } else {
+  } else if (req.cookies.authorization) {
+    token = req.cookies.authorization;
+    res.cookie('authorization', token, { maxAge: 86400000 });
+  }
+  else {
     return res.json(401, {err: 'No Authorization header was found'});
   }
 

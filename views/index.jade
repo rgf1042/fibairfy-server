@@ -11,7 +11,7 @@ html(lang='ca')
     script(src='js/responsive.min.js')
   body
     #form-login-group.form-login-group
-      form(name='form-login')
+      form(name='form-login',action='/auth/loginHTML',method='post')
         .row
           .col-s-2
           .col-s-8
@@ -28,7 +28,7 @@ html(lang='ca')
             button#submit(value='Login') Login
           .col-s-2
     script.
-      $('form[name=form-login]').submit( function(e) {
+      /*$('form[name=form-login]').submit( function(e) {
         var username = $('input[name=username]').val()
         var password = $('input[name=password]').val()
         $.ajax({
@@ -51,4 +51,4 @@ html(lang='ca')
           contentType : "application/json"
         });
         e.preventDefault();
-      });
+      });*/
