@@ -47,7 +47,7 @@ module.exports.cors = {
   *                                                                          *
   ***************************************************************************/
 
-  // origin: '*',
+  // origin: 'http://localhost:3000',
 
   /***************************************************************************
   *                                                                          *
@@ -73,6 +73,8 @@ module.exports.cors = {
   *                                                                          *
   ***************************************************************************/
 
-  // headers: 'content-type'
+   headers: 'content-type, Authorization',
+   allRoutes: true,
+   origin: 'http://localhost:3000'
 
 };
