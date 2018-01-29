@@ -14,7 +14,7 @@ module.exports = function (req, res, next) {
     var pk = actionUtil.requirePk(req);
     Model.findOne(pk).exec(function (err, entity) {
       ProjectOwnership.findOne({
-        project: entity.project,
+        project: entity.project || entity.id,
         user: req.token.id
       }).exec(function (err, projectowner) {
         if (err) return res.negotiate(err);
