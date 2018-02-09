@@ -50,6 +50,8 @@ module.exports.routes = {
   ***************************************************************************/
   'POST /auth/login': 'AuthController.login',
 
+  'POST /auth/loginLDAP': 'AuthController.loginLDAP',
+
   'POST /auth/loginHTML': 'AuthController.loginHTML',
 
   'POST /auth/logoutHTML': 'AuthController.logoutHTML',

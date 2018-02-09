@@ -16,6 +16,9 @@ module.exports = {
     password: {
       type: 'string'
     },
+    isLdap: {
+      type: 'boolean'
+    },
     projects: {
       collection: 'ProjectOwnership',
       via: 'user'
@@ -23,20 +26,23 @@ module.exports = {
 
     toJSON: function () {
       const model = this.toObject();
-      delete model.password;
+      if (model.password) delete model.password;
       return model;
     }
   },
 
   beforeCreate : function (values, next) {
-    bcrypt.genSalt(10, function (err, salt) {
-      if(err) return next(err);
-      bcrypt.hash(values.password, salt, function (err, hash) {
+    if (!values.password) next()
+    else {
+      bcrypt.genSalt(10, function (err, salt) {
         if(err) return next(err);
-        values.password = hash;
-        next();
+        bcrypt.hash(values.password, salt, function (err, hash) {
+        if(err) return next(err);
+          values.password = hash;
+          next();
+        })
       })
-    })
+    }
   },
 
   comparePassword : function (password, user, cb) {
