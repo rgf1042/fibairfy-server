@@ -24,12 +24,9 @@ module.exports.search = function(username, callback) {
   client.bind('uid=' + ldap_user + ',o=glirusers,dc=guifi,dc=net',
   ldap_pass, function(err) { if (err) {
         if (err.lde_message == "Invalid Credentials" ){
-          console.log("Wrong Credentials!");
-        } else {
-          console.log(err);
+          callback ({ error: err.lde_message })
         }
     } else {
-      console.log("Good Credentials!");
       var opts = {
         filter: '(&(cn=lectura)(memberUid=' + username + '))',
         scope: 'sub',
@@ -43,14 +40,11 @@ module.exports.search = function(username, callback) {
           console.log('entry: ' + JSON.stringify(entry.object));
           data = entry.object;
         });
-        res.on('searchReference', function(referral) {
-          console.log('referral: ' + referral.uris.join());
-        });
         res.on('error', function(err) {
           console.error('error: ' + err.message);
+          callback ({ error: err.lde_message })
         });
         res.on('end', function(result) {
-          console.log('status: ' + result.status);
           callback(data);
         });
 
@@ -81,7 +75,6 @@ module.exports.authenticate = function(credentials, callback) {
           callback({ error: err.lde_message });
         }
     } else {
-      console.log("Good Credentials!");
       callback({message: 'Good Credentials'})
     }
   });

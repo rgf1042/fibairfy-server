@@ -47,19 +47,16 @@ module.exports = {
       return res.json(401, {flag: false, message: 'username and password required'});
     }
     ldap.search(username, function (data) {
+      if (data.err) res.json(401, {flag: false, message: data.error});
       if (data.cn === 'lectura') {
         ldap.authenticate({username: username, password: password}, function (auth) {
           if (auth.error) {
             return res.json(401, {flag: false, message: auth.error});
           } else {
-            console.log('trace 1');
-            console.log('username: ' + username);
             User.findOne({username: username}, function (message, user) {
-              if (!user) {
-                console.log('trace 2');
+              if (!user) { // User is not in fiberfy database we create one
                 User.create({username: username, isLdap: true}, function (err, user) {
                   if (err) res.json(500, {flag: false, message: 'internal server error'});
-                  console.log('trace 3');
                   // We issue token
                   let token = jwToken.issue({id: user.id});
           				res.set('Authorization','Bearer ' + token);
@@ -69,8 +66,8 @@ module.exports = {
                     token: token
                   });
                 });
-              } else {
-                if (!user.isLdap) {
+              } else { // There's this user inside fiberfy database
+                if (!user.isLdap) { // Exists but it's not LDAP
                   User.update({username: username, isLdap: true}, function (err, user) {
                     if (err) res.json(500, {flag: false, message: 'internal server error'});
                     // We issue token
@@ -82,7 +79,7 @@ module.exports = {
                       token: token
                     });
                   });
-                } else {
+                } else { // It exists and it's LDAP
                   // We issue token
                   let token = jwToken.issue({id: user.id});
           				res.set('Authorization','Bearer ' + token);
@@ -96,7 +93,7 @@ module.exports = {
             })
           }
         })
-      } else {
+      } else { // User it's not in LDAP or it doesn't have enough permissions
         return res.json({flag: false, message: 'invalid username or password'});
       }
     })
