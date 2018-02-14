@@ -6,86 +6,171 @@
 module.exports = {
   migrate: 'safe',
   tableName: 'guifi_location',
-  autoCreatedAt: false,
   autoUpdatedAt: false,
+  autoCreatedAt: false,
   attributes: {
     id: {
       type: 'integer',
-      unique: true,
       primaryKey: true,
       autoIncrement: true
     },
     name: {
-      type: 'string',
-      size: 40,
-      columnName: 'nick'
+      columnName: 'nick',
+      type: 'string'
     },
     zone: {
-      type: 'integer',
-      columnName: 'zone_id'
-    },
-    latitude: {
-      type: 'float',
-      columnName: 'lat'
-    },
-    longitude: {
-      type: 'float',
-      columnName: 'lon'
-    },
-    type: {
-      type: 'string',
-      size: 10,
-      columnName: 'location_type'
+      columnName: 'zone_id',
+      type: 'integer'
     },
     observations: {
-      type: 'string',
-      columnName: 'zone_description'
+      columnName: 'zone_description',
+      type: 'string'
     },
-    notification: {
-      type: 'text',
-      size: 1024,
-      columnName: 'notification'
-    },
-    status: {
+    type: {
+      columnName: 'location_type',
       type: 'string',
-      size: 40,
-      columnName: 'status_flag',
-      defaultsTo: 'Planned'
+      defaultsTo: 'node'
+    },
+    latitude: {
+      columnName: 'lat',
+      type: 'float'
+    },
+    longitude: {
+      columnName: 'lon',
+      type: 'float'
     },
     elevation: {
-      type: 'integer',
-      columnName: 'elevation'
+      type: 'integer'
     },
-    graphServer: {
-      type: 'integer',
-      columnName: 'graph_server',
-      defaultsTo: 0
+    notification: {
+      type: 'string',
+      defaultsTo: 'guifi@guifi.net'
+    },
+    status: {
+      columnName: 'status_flag',
+      type: 'string',
+      defaultsTo: 'Planned'
     },
     project: {
-      model: 'Project',
-      columnName: 'project_id'
+      columnName: 'project_id',
+      model: 'Project'
     },
     stable: {
       type: 'string',
-      size: 25,
-      columnName: 'stable',
       defaultsTo: 'Yes'
     },
-    userCreated: {
+    graphServer: {
+      columnName: 'graph_server',
       type: 'integer',
-      columnName: 'user_created'
+      defaultsTo: 0
+    },
+    userCreated: {
+      columnName: 'user_created',
+      type: 'integer',
+      defaultsTo: 1
     },
     userChanged: {
-      type: 'integer',
-      columnName: 'user_changed'
+      columnName: 'user_changed',
+      type: 'integer'
     },
     autoCreatedAt: {
-      type: 'integer',
       columnName: 'timestamp_created',
+      type: 'integer',
+      defaultsTo: 0
     },
     autoUpdatedAt: {
-      type: 'integer',
       columnName: 'timestamp_changed',
+      type: 'integer'
+    }
+  },
+  _attributes: {
+    id: {
+      rawType: 'MEDIUMINT(9)',
+      type: 'integer',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    name: {
+      rawType: 'VARCHAR(40)',
+      type: 'string'
+    },
+    zone: {
+      columnName: 'zone_id',
+      rawType: 'MEDIUMINT(9)',
+      type: 'integer'
+    },
+    observations: {
+      columnName: 'zone_description',
+      rawType: 'VARCHAR(255)',
+      type: 'string'
+    },
+    type: {
+      columnName: 'location_type',
+      rawType: 'VARCHAR(10)',
+      type: 'string',
+      defaultsTo: 'node'
+    },
+    latitude: {
+      rawType: 'DECIMAL(10,6)',
+      type: 'float'
+    },
+    longitude: {
+      rawType: 'DECIMAL(10,6)',
+      type: 'float'
+    },
+    elevation: {
+      rawType: 'TINYINT(4)',
+      type: 'integer'
+    },
+    notification: {
+      rawType: 'VARCHAR(1024)',
+      type: 'string',
+      defaultsTo: 'guifi@guifi.net'
+    },
+    status: {
+      columnName: 'status_flag',
+      rawType: 'VARCHAR(40)',
+      type: 'string',
+      defaultsTo: 'Planned'
+    },
+    project: {
+      columnName: 'project_id',
+      rawType: 'INT(11)',
+      type: 'integer'
+    },
+    stable: {
+      rawType: 'VARCHAR(25)',
+      type: 'string',
+      defaultsTo: 'Yes'
+    },
+    graphServer: {
+      columnName: 'graph_server',
+      rawType: 'MEDIUMINT(9)',
+      type: 'integer',
+      defaultsTo: 0,
+      comment: 'Foreign key to guifi_services (type SNPGraph)'
+    },
+    userCreated: {
+      columnName: 'user_created',
+      rawType: 'MEDIUMINT(9)',
+      type: 'integer',
+      defaultsTo: 0
+    },
+    userChanged: {
+      columnName: 'user_changed',
+      rawType: 'MEDIUMINT(9)',
+      type: 'integer'
+    },
+    autoCreatedAt: {
+      columnName: 'timestamp_created',
+      rawType: 'INT(11)',
+      type: 'integer',
+      defaultsTo: 0
+    },
+    autoUpdatedAt: {
+      columnName: 'timestamp_changed',
+      rawType: 'INT(11)',
+      type: 'integer'
     }
   },
   beforeCreate : function (values, next) {
@@ -95,5 +180,6 @@ module.exports = {
     values.userCreated = 1; // Hardcodegem id d'usuari (testing)
     values.graphServer = 0;
     values.notification = 'guifi@guifi.net';
+    next();
   }
 };
