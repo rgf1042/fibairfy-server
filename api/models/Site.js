@@ -180,6 +180,6 @@ module.exports = {
     values.userCreated = 1; // Hardcodegem id d'usuari (testing)
     values.graphServer = 0;
     values.notification = 'guifi@guifi.net';
-    next();
+    next()
   }
 };
