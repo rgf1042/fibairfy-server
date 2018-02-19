@@ -63,7 +63,6 @@ module.exports.policies = {
     'create': ['isAuthorized','canWrite'],
     'destroy': ['isAuthorized','canWrite'],
     'update': ['isAuthorized','canWrite'],
-    'populate': ['isAuthorized','canWrite'],
     'add': ['isAuthorized','canWrite'],
     'remove': ['canWrite']
   },
@@ -72,7 +71,6 @@ module.exports.policies = {
     'create': ['isAuthorized','canWrite'],
     'destroy': ['isAuthorized','canWrite'],
     'update': ['isAuthorized','canWrite'],
-    'populate': ['isAuthorized','canWrite'],
     'add': ['isAuthorized','canWrite'],
     'remove': ['canWrite']
   },
@@ -81,7 +79,6 @@ module.exports.policies = {
     'create': ['isAuthorized','canWrite'],
     'destroy': ['isAuthorized','canWrite'],
     'update': ['isAuthorized','canWrite'],
-    'populate': ['isAuthorized','canWrite'],
     'add': ['isAuthorized','canWrite'],
     'remove': ['canWrite']
   },
@@ -90,7 +87,6 @@ module.exports.policies = {
     'create': ['isAuthorized','canWrite'],
     'destroy': ['isAuthorized','canWrite'],
     'update': ['isAuthorized','canWrite'],
-    'populate': ['isAuthorized','canWrite'],
     'add': ['isAuthorized','canWrite'],
     'remove': ['canWrite']
   },
@@ -99,7 +95,6 @@ module.exports.policies = {
     'create': ['isAuthorized'],
     'destroy': ['isAuthorized','canWrite'],
     'update': ['isAuthorized','canWrite'],
-    'populate': ['isAuthorized','canWrite'],
     'add': ['isAuthorized','canWrite'],
     'remove': ['canWrite']
   },
@@ -108,8 +103,14 @@ module.exports.policies = {
     'create': ['isAuthorized','canWrite'],
     'destroy': ['isAuthorized','canWrite'],
     'update': ['isAuthorized','canWrite'],
-    'populate': ['isAuthorized','canWrite'],
     'add': ['isAuthorized','canWrite'],
     'remove': ['canWrite']
+  },
+
+  'ZoneController': {
+    '*': false,
+    'find': ['isAuthorized'],
+    'findOne': ['isAuthorized'],
+    'populate': ['isAuthorized']
   }
 };

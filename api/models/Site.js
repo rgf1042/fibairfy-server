@@ -20,7 +20,7 @@ module.exports = {
     },
     zone: {
       columnName: 'zone_id',
-      type: 'integer'
+      model: 'Zone'
     },
     observations: {
       columnName: 'zone_description',
@@ -180,6 +180,11 @@ module.exports = {
     values.userCreated = 1; // Hardcodegem id d'usuari (testing)
     values.graphServer = 0;
     values.notification = 'guifi@guifi.net';
-    next()
+    next();
+  },
+  beforeUpdate : function (values, next) {
+    var seconds = Math.floor(new Date() / 1000);
+    values.autoUpdatedAt = seconds;
+    next();
   }
 };
