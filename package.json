@@ -28,7 +28,7 @@
     "sails-mysql": "^0.11.5"
   },
   "scripts": {
-    "test": "eslint --ignore-pattern '/client/' --ignore-pattern '/assets/' --fix . && eslint --no-eslintrc -c client/eslintrc.json client/. && mocha",
+    "test": "eslint --ignore-pattern '/client/' --ignore-pattern '/assets/' --ignore-pattern 'app.js' . && eslint --no-eslintrc -c client/eslintrc.json client/. && mocha",
     "build": "cd client && browserify app.js -o ../assets/js/bundle.js",
     "build-live": "cd client && watchify *.js -o ../assets/js/bundle.js -dv"
   },
