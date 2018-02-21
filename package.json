@@ -28,7 +28,8 @@
     "sails-mysql": "^0.11.5"
   },
   "scripts": {
-    "test": "eslint --ignore-pattern '/client/' --ignore-pattern '/assets/' --ignore-pattern 'app.js' . && eslint --no-eslintrc -c client/eslintrc.json client/. && mocha",
+    "test": "eslint --ignore-pattern '/client/' --ignore-pattern '/assets/' --ignore-pattern 'app.js' . && eslint --no-eslintrc -c client/eslintrc.json client/. && NODE_ENV=test node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/bootstrap.test.js test/**/*.spec.js",
+    "test-dev": "NODE_ENV=test node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/**/*.spec.js",
     "build": "cd client && browserify app.js -o ../assets/js/bundle.js",
     "build-live": "cd client && watchify *.js -o ../assets/js/bundle.js -dv"
   },
