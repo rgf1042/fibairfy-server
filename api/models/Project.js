@@ -21,6 +21,10 @@ module.exports = {
     zoom: {
       type: 'integer'
     },
+    defaultZone : {
+      model: 'Zone',
+      defaultsTo: 2413 //Catalunya
+    },
     users: {
       collection: 'ProjectOwnership',
       via: 'project'
