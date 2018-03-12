@@ -14,6 +14,7 @@ const longitude = 1.571044921875
 const zoom = 8
 const defaultZone = 2413
 const status = 'Planned'
+var id
 
 describe('Project', function() {
   // First we have to login and get a valid token
@@ -35,6 +36,7 @@ describe('Project', function() {
         })
       .end(function(err, response) {
         if (err) return done(err, sails)
+        id = response.body.id
         Project.findOne({ id: response.body.id }).exec(function(err, project) {
           if (err) return done(err, sails)
           chai.assert.equal(project.name, name)
@@ -47,4 +49,40 @@ describe('Project', function() {
       })
   })
 
+  it('should delete project', function(done){
+    // Delete Project
+    request(sails.hooks.http.app)
+      .delete('/api/v1/project')
+      .set('Authorization', 'bearer ' + authorization.token)
+      .send({
+          id: id
+        })
+      .end(function(err, response) {
+        if (err) return done(err)
+        Project.findOne({ id: response.body.id }).exec(function(err, project) {
+          if (err) return done(err)
+          try {
+            chai.expect(project).to.be.undefined
+            done()
+          }
+          catch (e) {
+            done(e)
+          }
+        })
+      })
+  })
+
+  it('should not get ProjectOwnership entries from deleted project', function (done) {
+    // Test Project assignations to users
+    ProjectOwnership.find({ project: id}).exec(function (err, ownerships) {
+      if (err) return done(err)
+      try {
+        chai.expect(ownerships).to.be.undefined
+        done()
+      }
+      catch (e) {
+        done(e)
+      }
+    })
+  })
 })
