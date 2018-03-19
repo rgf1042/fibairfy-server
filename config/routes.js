@@ -66,6 +66,8 @@ module.exports.routes = {
 
   /* Fusion */
 
-  'DELETE /api/v1/fusion': 'FusionController.destroyByParameters'
+  'DELETE /api/v1/fusion': 'FusionController.destroyByParameters',
 
+  /* IO */
+  'POST /api/v1/import': 'InputOutputController.imports'
 };
