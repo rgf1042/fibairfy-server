@@ -36,7 +36,7 @@ describe('Project', function() {
         })
       .end(function(err, response) {
         if (err) return done(err, sails)
-        id = response.body.id
+        id = response.body.project
         Project.findOne({ id: response.body.id }).exec(function(err, project) {
           if (err) return done(err, sails)
           chai.assert.equal(project.name, name)

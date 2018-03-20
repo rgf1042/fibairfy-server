@@ -1,0 +1,120 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.281036,
+                    41.837292
+                ]
+            },
+            "properties": {
+                "type": "manhole",
+                "status": "Planned",
+                "name": "siteTest3"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.28094,
+                    41.834869
+                ]
+            },
+            "properties": {
+                "type": "manhole",
+                "status": "Planned",
+                "name": "Punto 3"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.282646,
+                    41.8369
+                ]
+            },
+            "properties": {
+                "type": "manhole",
+                "status": "Planned",
+                "name": "siteTest2"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.279888,
+                    41.83686
+                ]
+            },
+            "properties": {
+                "type": "manhole",
+                "status": "Planned",
+                "name": "siteTest1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.281423,
+                    41.836828
+                ]
+            },
+            "properties": {
+                "type": "manhole",
+                "status": "Planned",
+                "name": "siteTest4"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        2.279888,
+                        41.83686
+                    ],
+                    [
+                        2.281036,
+                        41.837292
+                    ]
+                ]
+            },
+            "properties": {
+                "type": "aerial",
+                "name": null
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        2.281036,
+                        41.837292
+                    ],
+                    [
+                        2.281423,
+                        41.836828
+                    ]
+                ]
+            },
+            "properties": {
+                "type": "aerial",
+                "name": null
+            }
+        }
+    ]
+}
