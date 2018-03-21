@@ -21,6 +21,16 @@ const defaultZone = 2413
 const status = 'Planned'
 var id
 
+// Functions
+function eraseContent (project, callback) {
+  Site.destroy({
+    project: project
+  }).exec(function (err) {
+    if (err) callback(err)
+    callback()
+  })
+}
+
 // Well attributes (to compare)
 const wellContent = [
   {
@@ -129,7 +139,7 @@ describe('Input', function() {
           response.body.should.contain.a.thing.with.property('name', wellContent[x].name)
           // chai.expect(response.body).to.have.deep.property('name', wellContent[x].name)
         }
-        done()
+        eraseContent(id, done)
       })
   })
 })
