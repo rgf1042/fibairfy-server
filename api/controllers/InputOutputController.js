@@ -16,7 +16,8 @@ function importSites (data, project) {
         reject({ msg: 'GeoJSON its not well formatted'})
       }
       let promises = []
-      let sites = []
+      let lastPromises = []
+      let pathPromises = []
       let positions = data.features
       for (let x in positions) {
         // We iterate geojson
@@ -26,7 +27,7 @@ function importSites (data, project) {
         if (positions[x].geometry.type === 'Point') {
           // We import this site
           let site = {}
-          site['type'] = 'manhole' // Define default not hardcoded
+          site['type'] = 'notdefined' // Define default not hardcoded
           if (positions[x].properties) { // We have to test if it's possible somewhere
             if (positions[x].properties.name) site['name'] = positions[x].properties.name
             if (positions[x].properties.type) site['type'] = positions[x].properties.type
@@ -37,14 +38,47 @@ function importSites (data, project) {
           site['longitude'] = positions[x].geometry.coordinates[0]
           site['project'] = project
 
-          // sites.push(site)
           // Call database ORM
           promises.push(Site.create(site))
 
         }
+        else if (positions[x].geometry.type === 'LineString') {
+          // Test minimum 2
+          for (let y in positions[x].geometry.coordinates) {
+            let latitude = positions[x].geometry.coordinates[y][1]
+            let longitude = positions[x].geometry.coordinates[y][0]
+            let siteName = 'site' + Math.floor(Math.random() * 100000) // This must improve
+
+            pathPromises.push(Site.create({
+              name: siteName,
+              latitude: latitude,
+              longitude: longitude,
+              type: 'notdefined',
+              project: project
+            }))
+          }
+        }
       }
-      Promise.all(promises).then(function (values) {
-        resolve(values)
+      Promise.all(pathPromises).then(function (values) {
+        for (let y in values) {
+          if (y > 0) {
+            let pathName = 'path' + Math.floor(Math.random() * 100000)
+            lastPromises.push(Path.create({
+              name: pathName,
+              first: values[y-1].id,
+              last: values[y].id,
+              type: 'notdefined',
+              project: project
+            }))
+          }
+        }
+        let result = values
+        Promise.all(lastPromises).then(function (values) {
+          result = result.concat(values)
+          Promise.all(promises).then(function (values) {
+            resolve(result.concat(values))
+          })
+        })
       })
     }
     catch (err) {
