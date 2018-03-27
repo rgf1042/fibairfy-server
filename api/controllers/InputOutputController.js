@@ -9,6 +9,15 @@ const fs = require('fs')
 const DOMParser = require('xmldom').DOMParser
 const mime = require('mime-types')
 const geolib = require('geolib')
+const unzip = require('unzip')
+
+function processKML (path) {
+  let data = fs.readFileSync(path, 'utf8')
+  let kml = new DOMParser().parseFromString(data)
+  let converted = tj.kml(kml)
+  fs.unlinkSync(path)
+  return converted
+}
 
 function importSites (data, project) {
   return new Promise((resolve, reject) => {
@@ -165,8 +174,31 @@ function importSites (data, project) {
           return res.badRequest('No project id was issued');
         }
 
-        var data = fs.readFileSync(uploadedFiles[0].fd, 'utf8')
-        if (mime.lookup(uploadedFiles[0].fd) === mime.lookup('.geojson')) {
+        if (mime.lookup(uploadedFiles[0].fd) === mime.lookup('.kmz')) {
+          fs.createReadStream(uploadedFiles[0].fd)
+            .pipe(unzip.Parse())
+            .on('entry', function (entry) {
+              var fileName = entry.path
+              var type = entry.type // 'Directory' or 'File'
+              var size = entry.size
+              if (fileName === 'doc.kml') {
+                entry.pipe(fs.createWriteStream(uploadedFiles[0].fd + '.kml'))
+                  .on('close', function () {
+                    fs.unlinkSync(uploadedFiles[0].fd)
+                    let data = processKML(uploadedFiles[0].fd + '.kml')
+                    importSites(data, req.body.project).then(response => {
+                      return res.json(response)
+                    }, error => {
+                      return res.json({msg: error})
+                    })
+                  })
+              } else {
+                entry.autodrain()
+              }
+            })
+        }
+        else if (mime.lookup(uploadedFiles[0].fd) === mime.lookup('.geojson')) {
+          let data = fs.readFileSync(uploadedFiles[0].fd, 'utf8')
           fs.unlinkSync(uploadedFiles[0].fd)
           importSites(JSON.parse(data), req.body.project).then(response => {
             return res.json(response)
@@ -174,21 +206,14 @@ function importSites (data, project) {
             return res.json({msg: error})
           })
         }
-
-        if (mime.lookup(uploadedFiles[0].fd) === mime.lookup('.kml')) {
-          let kml = new DOMParser().parseFromString(data)
-          let converted = tj.kml(kml)
-          fs.unlinkSync(uploadedFiles[0].fd)
-          importSites(converted, req.body.project).then(response => {
-            return res.json({content: response})
+        else if (mime.lookup(uploadedFiles[0].fd) === mime.lookup('.kml')) {
+          let data = processKML(fs.readFileSync(uploadedFiles[0].fd, 'utf8'))
+          importSites(data, req.body.project).then(response => {
+            return res.json(response)
           }, error => {
             return res.json({msg: error})
           })
         }
-
-        // fs.unlinkSync(uploadedFiles[0].fd)
-        // return res.json({ file: uploadedFiles[0].fd})
-        // var kml = new DOMParser().parseFromString(fs.readFileSync(uploadedFiles[0].fd, 'utf8'))
     })
    }
  };

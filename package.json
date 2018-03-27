@@ -57,6 +57,7 @@
     "paper": "^0.9.25",
     "supertest": "^1.2",
     "uglifyjs": "^2.4.10",
+    "unzip": "^0.1.11",
     "watchify": "^3.7.0"
   }
 }
