@@ -8,6 +8,7 @@ const tj = require('togeojson')
 const fs = require('fs')
 const DOMParser = require('xmldom').DOMParser
 const mime = require('mime-types')
+const geolib = require('geolib')
 
 function importSites (data, project) {
   return new Promise((resolve, reject) => {
@@ -15,9 +16,8 @@ function importSites (data, project) {
       if (data.type !== 'FeatureCollection') {
         reject({ msg: 'GeoJSON its not well formatted'})
       }
-      let promises = []
-      let lastPromises = []
-      let pathPromises = []
+      let sites = []
+      let paths = []
       let positions = data.features
       for (let x in positions) {
         // We iterate geojson
@@ -39,45 +39,97 @@ function importSites (data, project) {
           site['project'] = project
 
           // Call database ORM
-          promises.push(Site.create(site))
+          sites.push(site)
 
         }
         else if (positions[x].geometry.type === 'LineString') {
           // Test minimum 2
+          let path = {}
+          path['name'] = 'path' + Math.floor(Math.random() * 100000)
+          path['type'] = 'notdefined'
+          path['intermedial'] = []
           for (let y in positions[x].geometry.coordinates) {
             let latitude = positions[x].geometry.coordinates[y][1]
             let longitude = positions[x].geometry.coordinates[y][0]
-            let siteName = 'site' + Math.floor(Math.random() * 100000) // This must improve
-
-            pathPromises.push(Site.create({
-              name: siteName,
-              latitude: latitude,
-              longitude: longitude,
-              type: 'notdefined',
-              project: project
-            }))
+            // let siteName = 'site' + Math.floor(Math.random() * 100000) // This must improve
+            path.intermedial.push([
+              latitude,
+              longitude
+            ])
           }
+          paths.push(path)
         }
       }
-      Promise.all(pathPromises).then(function (values) {
-        for (let y in values) {
-          if (y > 0) {
-            let pathName = 'path' + Math.floor(Math.random() * 100000)
-            lastPromises.push(Path.create({
-              name: pathName,
-              first: values[y-1].id,
-              last: values[y].id,
-              type: 'notdefined',
-              project: project
-            }))
-          }
+
+      let sitesPromises = []
+      let pathsPromises = []
+      // Now we have to work with paths and sites
+      let threshold = 10 // Not hardcoded (in meters)
+      for (let x in paths) {
+        // Search first/end point existence
+        // If exists use existing point
+        let posIni = sites.findIndex(function (e, index) {
+          let dist = geolib.getDistance(
+            {latitude: paths[x].intermedial[0][0],
+            longitude: paths[x].intermedial[0][1]},
+            {latitude: e.latitude, longitude: e.longitude}
+          )
+          return (dist < threshold)
+        })
+        let posEnd = sites.findIndex(function (e, index) {
+          let end = paths[x].intermedial.length -1
+          let dist = geolib.getDistance(
+            {latitude: paths[x].intermedial[end][0],
+            longitude: paths[x].intermedial[end][1]},
+            {latitude: e.latitude, longitude: e.longitude}
+          )
+          return (dist < threshold)
+        })
+        if(posIni < 0) { // In this case we have to create a Site
+          let newSite = {}
+          newSite['name'] = 'site' + Math.floor(Math.random() * 100000)
+          newSite['type'] = 'notdefined'
+          newSite['latitude'] = paths[x].intermedial[0][0]
+          newSite['longitude'] = paths[x].intermedial[0][1]
+          newSite['project'] = project
+          sites.push(newSite)
+          posIni = sites.length - 1
         }
-        let result = values
-        Promise.all(lastPromises).then(function (values) {
+        if(posEnd < 0) { // In this case we have to create a Site
+          let newSite = {}
+          let end = paths[x].intermedial.length -1
+          newSite['name'] = 'site' + Math.floor(Math.random() * 100000)
+          newSite['type'] = 'notdefined'
+          newSite['latitude'] = paths[x].intermedial[end][0]
+          newSite['longitude'] = paths[x].intermedial[end][1]
+          newSite['project'] = project
+          sites.push(newSite)
+          posEnd = sites.length - 1
+        }
+        paths[x].posIni = posIni
+        paths[x].posEnd = posEnd
+      }
+      for (let x in sites) {
+        sitesPromises.push(Site.create(sites[x]))
+      }
+      let result = []
+      Promise.all(sitesPromises).then(function (values) {
+        for (let x in paths) {
+          let path = paths[x]
+          path.intermedial.splice(0, 1)
+          path.intermedial.splice(path.intermedial.length - 1, 1)
+          pathsPromises.push(Path.create({
+            name: path.name,
+            type: path.type,
+            intermedial: path.intermedial,
+            first: values[path.posIni].id,
+            last: values[path.posEnd].id,
+            project: project
+          }))
           result = result.concat(values)
-          Promise.all(promises).then(function (values) {
-            resolve(result.concat(values))
-          })
+        }
+        Promise.all(pathsPromises).then(function (values) {
+          resolve(result.concat(values))
         })
       })
     }

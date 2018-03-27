@@ -16,7 +16,7 @@ module.exports = {
       model: 'Site'
     },
     intermedial: {
-      type: 'text'
+      type: 'json'
     },
     type: {
       type: 'string'
