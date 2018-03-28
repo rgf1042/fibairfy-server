@@ -97,7 +97,8 @@ module.exports = {
     zone: {
       columnName: 'zone_id',
       rawType: 'MEDIUMINT(9)',
-      type: 'integer'
+      type: 'integer',
+      defaultsTo: 2413
     },
     observations: {
       columnName: 'zone_description',
@@ -176,7 +177,6 @@ module.exports = {
   beforeCreate : function (values, next) {
     var seconds = Math.floor(new Date() / 1000);
     values.autoCreatedAt = seconds;
-    values.zone = 2413; // Catalunya
     values.userCreated = 1; // Hardcodegem id d'usuari (testing)
     values.graphServer = 0;
     values.notification = 'guifi@guifi.net';
