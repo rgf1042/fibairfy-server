@@ -29,7 +29,17 @@ module.exports = {
     type: {
       columnName: 'location_type',
       type: 'string',
-      defaultsTo: 'node'
+      defaultsTo: 'notdefined',
+      isIn: [
+        'notdefined',
+        'manhole',
+        'pole',
+        'room',
+        'cabinet',
+        'poe',
+        'hook',
+        'jump'
+      ]
     },
     latitude: {
       columnName: 'lat',
@@ -172,6 +182,11 @@ module.exports = {
       columnName: 'timestamp_changed',
       rawType: 'INT(11)',
       type: 'integer'
+    },
+    toJSON: function () {
+      const model = this.toObject();
+      if (model.type === 'node') return false;
+      return model;
     }
   },
   beforeCreate : function (values, next) {
