@@ -1,19 +1,23 @@
 /**
- * @module Fiber
- * @description Fiber inside Tube
+ * @module Tube
+ * @description Tube inside Cable
  */
 
 module.exports = {
-  tableName: 'fiberfy_fibers',
+  tableName: 'fiberfy_tubes',
   attributes: {
     name: {
       type: 'string'
     },
-    tube: {
-      model: 'Tube'
+    cable: {
+      model: 'Cable'
     },
     color: {
       type: 'string'
+    },
+    fibers: {
+      collection: 'Fiber',
+      via: 'tube'
     },
     observations: {
       type: 'text'

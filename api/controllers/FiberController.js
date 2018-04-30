@@ -6,6 +6,8 @@
  */
 
 module.exports = {
-	
-};
+	_config: { actions: false, rest: false, shortcuts: false },
+	create: function (req, res) {
 
+	}
+};
