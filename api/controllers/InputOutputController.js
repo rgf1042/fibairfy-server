@@ -19,7 +19,8 @@ function processKML (path) {
   return converted
 }
 
-function importSites (data, project) {
+function importSites (data, project, zone) {
+  console.log(zone)
   return new Promise((resolve, reject) => {
     try {
       if (data.type !== 'FeatureCollection') {
@@ -46,7 +47,7 @@ function importSites (data, project) {
           site['latitude'] = positions[x].geometry.coordinates[1]
           site['longitude'] = positions[x].geometry.coordinates[0]
           site['project'] = project
-
+          site['zone'] = zone
           // Call database ORM
           sites.push(site)
 
@@ -101,6 +102,7 @@ function importSites (data, project) {
           newSite['latitude'] = paths[x].intermedial[0][0]
           newSite['longitude'] = paths[x].intermedial[0][1]
           newSite['project'] = project
+          newSite['zone'] = zone
           sites.push(newSite)
           posIni = sites.length - 1
         }
@@ -112,6 +114,7 @@ function importSites (data, project) {
           newSite['latitude'] = paths[x].intermedial[end][0]
           newSite['longitude'] = paths[x].intermedial[end][1]
           newSite['project'] = project
+          newSite['zone'] = zone
           sites.push(newSite)
           posEnd = sites.length - 1
         }
@@ -139,7 +142,13 @@ function importSites (data, project) {
         }
         Promise.all(pathsPromises).then(function (values) {
           resolve(result.concat(values))
+        }).catch(function (reason) {
+          console.log(reason)
+          reject(reason)
         })
+      }).catch(function (reason) {
+        console.log(reason)
+        reject(reason)
       })
     }
     catch (err) {
@@ -173,7 +182,7 @@ function importSites (data, project) {
         if (!req.body.project) {
           return res.badRequest('No project id was issued');
         }
-
+        console.log(req.body.defaultZone)
         if (mime.lookup(uploadedFiles[0].fd) === mime.lookup('.kmz')) {
           fs.createReadStream(uploadedFiles[0].fd)
             .pipe(unzip.Parse())
@@ -186,7 +195,7 @@ function importSites (data, project) {
                   .on('close', function () {
                     fs.unlinkSync(uploadedFiles[0].fd)
                     let data = processKML(uploadedFiles[0].fd + '.kml')
-                    importSites(data, req.body.project).then(response => {
+                    importSites(data, req.body.project, req.body.defaultZone).then(response => {
                       return res.json(response)
                     }, error => {
                       return res.json({msg: error})

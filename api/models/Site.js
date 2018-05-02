@@ -30,7 +30,7 @@ module.exports = {
       columnName: 'location_type',
       type: 'string',
       defaultsTo: 'notdefined',
-      isIn: [
+      /* isIn: [
         'notdefined',
         'manhole',
         'pole',
@@ -39,7 +39,7 @@ module.exports = {
         'poe',
         'hook',
         'jump'
-      ]
+      ] */
     },
     latitude: {
       columnName: 'lat',
