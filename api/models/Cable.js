@@ -18,8 +18,9 @@ module.exports = {
       required: true
     },
     intermedial: {
-      collection: 'Path',
-      via: 'cables'
+      /* collection: 'Path',
+      via: 'cables' */
+      type: 'json'
     },
     tubes: {
       collection: 'Tube',
