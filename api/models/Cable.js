@@ -10,13 +10,16 @@ module.exports = {
       type: 'string'
     },
     first: {
-      model: 'Site'
+      model: 'Site',
+      required: true
     },
     last: {
-      model: 'Site'
+      model: 'Site',
+      required: true
     },
     intermedial: {
-      type: 'text'
+      collection: 'Path',
+      via: 'cables'
     },
     tubes: {
       collection: 'Tube',

@@ -75,6 +75,22 @@ module.exports.policies = {
     'remove': ['canWrite']
   },
 
+  'TubeController': {
+    'create': ['isAuthorized','canWrite'],
+    'destroy': ['isAuthorized','canWrite'],
+    'update': ['isAuthorized','canWrite'],
+    'add': ['isAuthorized','canWrite'],
+    'remove': ['canWrite']
+  },
+
+  'CableController': {
+    'create': ['isAuthorized','canWrite'],
+    'destroy': ['isAuthorized','canWrite'],
+    'update': ['isAuthorized','canWrite'],
+    'add': ['isAuthorized','canWrite'],
+    'remove': ['canWrite']
+  },
+
   'FusionController': {
     'create': ['isAuthorized','canWrite'],
     'destroy': ['isAuthorized','canWrite'],

@@ -1,7 +1,7 @@
 /**
- * FiberController
+ * CableController
  *
- * @description :: Server-side logic for managing Fibers
+ * @description :: Server-side logic for managing Cables
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 

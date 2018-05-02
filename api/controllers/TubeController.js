@@ -1,7 +1,7 @@
 /**
- * FiberController
+ * TubeController
  *
- * @description :: Server-side logic for managing Fibers
+ * @description :: Server-side logic for managing Tubes
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
