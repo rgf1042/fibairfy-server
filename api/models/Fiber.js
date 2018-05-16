@@ -10,7 +10,8 @@ module.exports = {
       type: 'string'
     },
     tube: {
-      model: 'Tube'
+      model: 'Tube',
+      required: true
     },
     color: {
       type: 'string'

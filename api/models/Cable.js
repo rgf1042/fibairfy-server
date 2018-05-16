@@ -20,7 +20,8 @@ module.exports = {
     intermedial: {
       /* collection: 'Path',
       via: 'cables' */
-      type: 'json'
+      type: 'json',
+      required: true
     },
     tubes: {
       collection: 'Tube',

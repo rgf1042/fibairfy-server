@@ -16,7 +16,8 @@ module.exports = {
       type: 'string'
     },
     site: {
-      model: 'site'
+      model: 'site',
+      required: true
     },
     inputFO: {
       type: 'integer'

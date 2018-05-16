@@ -10,7 +10,8 @@ module.exports = {
       type: 'string'
     },
     cable: {
-      model: 'Cable'
+      model: 'Cable',
+      required: true
     },
     color: {
       type: 'string'
