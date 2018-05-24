@@ -13,14 +13,18 @@ module.exports = function (req, res, next) {
     var Model = actionUtil.parseModel(req);
     var pk = actionUtil.requirePk(req);
     Model.findOne(pk).exec(function (err, entity) {
-      ProjectOwnership.findOne({
-        project: entity.project || entity.id,
-        user: req.token.id
-      }).exec(function (err, projectowner) {
-        if (err) return res.negotiate(err);
-        if (!projectowner) return res.json(401, {err: 'This User is not authorized in this project!'});
-        next();
-      });
+      if (entity) {
+        ProjectOwnership.findOne({
+          project: entity.project || entity.id,
+          user: req.token.id
+        }).exec(function (err, projectowner) {
+          if (err) return res.negotiate(err);
+          if (!projectowner) return res.json(401, {err: 'This User is not authorized in this project!'});
+          next();
+        });
+      } else {
+        return res.json(401, {err: 'This User is not authorized in this project!'});
+      }
     })
   }
   else {

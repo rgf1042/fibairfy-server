@@ -9,8 +9,8 @@ module.exports = {
     name: {
       type: 'string'
     },
-    colors: {
-      type: 'string'
+    data: {
+      type: 'json'
     },
 
   }

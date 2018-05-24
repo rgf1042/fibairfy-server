@@ -27,5 +27,14 @@ module.exports = {
     project: {
       model: 'Project'
     }
+  },
+  beforeDestroy : function (criteria, proceed) {
+    if (criteria.where.id) {
+      Fiber.destroy({tube: criteria.where.id}).exec(function(err) {
+        proceed(err);
+      })
+    } else {
+      proceed();
+    }
   }
 };

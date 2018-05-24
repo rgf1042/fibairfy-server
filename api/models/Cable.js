@@ -37,5 +37,14 @@ module.exports = {
     project: {
       model: 'Project'
     }
+  },
+  beforeDestroy : function (criteria, proceed) {
+    if (criteria.where.id) {
+      Tube.destroy({cable: criteria.where.id}).exec(function(err) {
+        proceed(err);
+      })
+    } else {
+      proceed();
+    }
   }
 };
