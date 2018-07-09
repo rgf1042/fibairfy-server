@@ -9,22 +9,12 @@ module.exports = {
     site: {
       model: 'Site'
     },
-    ffiber: {
-      model: 'Fiber'
+    fdata: {
+      type: 'json'
     },
-    fcolor: {
-      type: 'string'
+    sdata: {
+      type: 'json'
     },
-    lfiber: {
-      model: 'Fiber'
-    },
-    lcolor: {
-      type: 'string'
-    },
-    status: {
-      type: 'string'
-    },
-
     project: {
       model: 'Project'
     }
