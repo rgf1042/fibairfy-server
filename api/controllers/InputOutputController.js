@@ -49,25 +49,30 @@ function importSites (data, project, zone) {
           site['project'] = project
           site['zone'] = zone
           // Call database ORM
-          sites.push(site)
-
+          if (!isNaN(site.latitude) && !isNaN(site.longitude)) {
+            sites.push(site)
+          }
         }
         else if (positions[x].geometry.type === 'LineString') {
           // Test minimum 2
           let path = {}
+          let flag = true
           path['name'] = 'path' + Math.floor(Math.random() * 100000)
           path['type'] = 'notdefined'
           path['intermedial'] = []
           for (let y in positions[x].geometry.coordinates) {
             let latitude = positions[x].geometry.coordinates[y][1]
             let longitude = positions[x].geometry.coordinates[y][0]
+            if (isNaN(latitude) || isNaN(longitude)) flag = false
             // let siteName = 'site' + Math.floor(Math.random() * 100000) // This must improve
             path.intermedial.push([
               latitude,
               longitude
             ])
           }
-          paths.push(path)
+          if (flag) {
+            paths.push(path)
+          }
         }
       }
 
