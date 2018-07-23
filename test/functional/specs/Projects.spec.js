@@ -77,7 +77,7 @@ describe('Project', function() {
     ProjectOwnership.find({ project: id}).exec(function (err, ownerships) {
       if (err) return done(err)
       try {
-        chai.expect(ownerships).to.be.undefined
+        chai.expect(ownerships).to.be.empty
         done()
       }
       catch (e) {

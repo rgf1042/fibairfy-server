@@ -5,6 +5,7 @@
 
 module.exports = {
   tableName: 'fiberfy_projects',
+  cascadeOnDestroy: true,
   attributes: {
     name: {
       type: 'string'
