@@ -5,14 +5,9 @@
 module.exports = {
  migrate: 'safe',
  tableName: 'guifi_zone',
- autoUpdatedAt: false,
- autoCreatedAt: false,
  attributes: {
-   id: {
-     type: 'integer',
-     primaryKey: true,
-     autoIncrement: true
-   },
+   updatedAt: false,
+   createdAt: false,
    title: {
      type: 'string'
    },

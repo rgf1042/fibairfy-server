@@ -11,7 +11,8 @@ module.exports = {
   attributes: {
     username: {
       type: 'string',
-      unique: true
+      unique: true,
+      required: true
     },
     password: {
       type: 'string'
@@ -20,17 +21,14 @@ module.exports = {
       type: 'boolean'
     },
     projects: {
-      collection: 'ProjectOwnership',
-      via: 'user'
-    },
-
-    toJSON: function () {
-      const model = this.toObject();
-      if (model.password) delete model.password;
-      return model;
+      collection: 'Project',
+      via: 'user',
+      through: 'ProjectOwnership'
     }
   },
-
+  customToJSON: function () {
+    return _.omit(this, ['password'])
+  },
   beforeCreate : function (values, next) {
     if (!values.password) next()
     else {

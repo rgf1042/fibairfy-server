@@ -57,14 +57,18 @@ module.exports = {
               if (!user) { // User is not in fiberfy database we create one
                 User.create({username: username, isLdap: true}, function (err, user) {
                   if (err) res.json(500, {flag: false, message: 'internal server error'});
-                  // We issue token
-                  let token = jwToken.issue({id: user.id});
-          				res.set('Authorization','Bearer ' + token);
-                  res.json({
-                    flag: true,
-                    user: user,
-                    token: token
-                  });
+                  else {
+                    // We issue token
+                    console.log(user)
+                    console.log(err)
+                    let token = jwToken.issue({id: user.id});
+            				res.set('Authorization','Bearer ' + token);
+                    res.json({
+                      flag: true,
+                      user: user,
+                      token: token
+                    });
+                  }
                 });
               } else { // There's this user inside fiberfy database
                 if (!user.isLdap) { // Exists but it's not LDAP

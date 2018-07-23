@@ -18,7 +18,7 @@ module.exports = {
    ***************************************************************************/
 
    models: {
-     connection: 'guifidev'
+     datastore: 'default'
    },
 
 };

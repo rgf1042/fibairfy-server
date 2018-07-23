@@ -22,12 +22,12 @@ module.exports = {
       type: 'integer'
     },
     defaultZone : {
-      model: 'Zone',
-      defaultsTo: 2413 //Catalunya
+      model: 'Zone'
     },
     users: {
-      collection: 'ProjectOwnership',
-      via: 'project'
+      collection: 'User',
+      via: 'project',
+      through: 'ProjectOwnership'
     }
   }
 };

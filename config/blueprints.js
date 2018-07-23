@@ -44,7 +44,7 @@ module.exports.blueprints = {
   *                                                                          *
   ***************************************************************************/
 
-  // actions: true,
+  actions: true,
 
   /***************************************************************************
   *                                                                          *
@@ -159,5 +159,13 @@ module.exports.blueprints = {
   ****************************************************************************/
 
   // defaultLimit: 30
+  parseBlueprintOptions(req) {
+    var queryOptions = req._sails.hooks.blueprints.parseBlueprintOptions(req);
+
+    if(!req.param('populate', false) && !queryOptions.alias) {
+      queryOptions.populates = {};
+    }
+    return queryOptions;
+  }
 
 };

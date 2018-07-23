@@ -119,7 +119,7 @@ describe('Input', function() {
             })
           .end(function(err, response) {
             if (err) done(err)
-            id = response.body.project
+            id = response.body.id
             done()
           })
       })
