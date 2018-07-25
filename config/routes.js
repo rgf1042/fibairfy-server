@@ -56,13 +56,6 @@ module.exports.routes = {
 
   'POST /auth/logoutHTML': 'AuthController.logoutHTML',
 
-  /* Site */
-
-  'GET /api/v1/site/:id/boxes': 'SiteController.getBoxes',
-
-  'GET /api/v1/site/:id/fusion': 'SiteController.getFusion',
-
-  'GET /api/v1/site/:id/fibers': 'SiteController.getFibers',
 
   /* IO */
   'POST /api/v1/import': 'InputOutputController.imports'

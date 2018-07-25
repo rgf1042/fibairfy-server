@@ -17,10 +17,8 @@ module.exports = {
 			result = await Project.create(data).fetch()
 		}
 		catch (err) {
-			return res.negotiate(err);
+			return res.serverError(err);
 		}
-
-		console.log('trace1');
 		User.findOne({ id: req.token.id}).exec(async function (err, user) {
 			if (err) return res.negotiate(err);
 
@@ -29,9 +27,9 @@ module.exports = {
 				await User.addToCollection(user.id, 'projects', result.id);
 			}
 			catch (err2) {
-				return res.negotiate(err2);
+				return res.serverError(err2);
 			}
-			res.created(result);
+			res.ok(result);
 		})
 	}
 };

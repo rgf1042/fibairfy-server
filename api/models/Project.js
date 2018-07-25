@@ -14,13 +14,13 @@ module.exports = {
       type: 'string'
     },
     latitude: {
-      type: 'float'
+      type: 'number'
     },
     longitude: {
-      type: 'float'
+      type: 'number'
     },
     zoom: {
-      type: 'integer'
+      type: 'number'
     },
     defaultZone : {
       model: 'Zone'

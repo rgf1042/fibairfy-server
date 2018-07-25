@@ -15,10 +15,10 @@ module.exports = {
      type: 'string'
    },
    body: {
-     type: 'longtext'
+     type: 'string'
    },
    master: {
-     type: 'integer'
+     type: 'number'
    },
    timeZone: {
      columnName: 'time_zone',
@@ -48,13 +48,13 @@ module.exports = {
      type: 'string'
    },
    minx: {
-     type: 'float'
+     type: 'number'
    },
    miny: {
-     type: 'float'
+     type: 'number'
    },
    maxx: {
-     type: 'float'
+     type: 'number'
    },
    local: {
      type: 'string',
@@ -65,59 +65,59 @@ module.exports = {
      type: 'string'
    },
    refresh: {
-     type: 'integer'
+     type: 'number'
    },
    remoteServerId: {
      columnName: 'remote_server_id',
-     type: 'integer'
+     type: 'number'
    },
    maxy: {
-     type: 'float'
+     type: 'number'
    },
    weight: {
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    userCreated: {
      columnName: 'user_created',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    userChanged: {
      columnName: 'user_changed',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    autoCreatedAt: {
      columnName: 'timestamp_created',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    autoUpdatedAt: {
      columnName: 'timestamp_changed',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    proxyId: {
      columnName: 'proxy_id',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    voipId: {
      columnName: 'voip_id',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    hostNodes: {
      columnName: 'host_nodes',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    }
  },
  _attributes: {
    id: {
      rawType: 'MEDIUMINT(8) UNSIGNED',
-     type: 'integer',
+     type: 'number',
      primaryKey: true,
      autoIncrement: true
    },
@@ -130,12 +130,12 @@ module.exports = {
      type: 'string'
    },
    body: {
-     rawType: 'LONGTEXT',
-     type: 'longtext'
+     rawType: 'string',
+     type: 'string'
    },
    master: {
      rawType: 'MEDIUMINT(8) UNSIGNED',
-     type: 'integer'
+     type: 'number'
    },
    timeZone: {
      columnName: 'time_zone',
@@ -174,15 +174,15 @@ module.exports = {
    },
    minx: {
      rawType: 'DECIMAL(10,6)',
-     type: 'float'
+     type: 'number'
    },
    miny: {
      rawType: 'DECIMAL(10,6)',
-     type: 'float'
+     type: 'number'
    },
    maxx: {
      rawType: 'DECIMAL(10,6)',
-     type: 'float'
+     type: 'number'
    },
    local: {
      rawType: 'VARCHAR(5)',
@@ -197,62 +197,62 @@ module.exports = {
    },
    refresh: {
      rawType: 'INT(11)',
-     type: 'integer'
+     type: 'number'
    },
    remoteServerId: {
      columnName: 'remote_server_id',
      rawType: 'MEDIUMINT(9)',
-     type: 'integer'
+     type: 'number'
    },
    maxy: {
      rawType: 'DECIMAL(10,6)',
-     type: 'float'
+     type: 'number'
    },
    weight: {
      rawType: 'TINYINT(4)',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    userCreated: {
      columnName: 'user_created',
      rawType: 'MEDIUMINT(9)',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    userChanged: {
      columnName: 'user_changed',
      rawType: 'MEDIUMINT(9)',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    autoCreatedAt: {
      columnName: 'timestamp_created',
      rawType: 'INT(11)',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    autoUpdatedAt: {
      columnName: 'timestamp_changed',
      rawType: 'INT(11)',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    proxyId: {
      columnName: 'proxy_id',
      rawType: 'MEDIUMINT(9)',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    voipId: {
      columnName: 'voip_id',
      rawType: 'MEDIUMINT(9)',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    },
    hostNodes: {
      columnName: 'host_nodes',
      rawType: 'SMALLINT(6)',
-     type: 'integer',
+     type: 'number',
      defaultsTo: 0
    }
  }

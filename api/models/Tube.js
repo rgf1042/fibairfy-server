@@ -21,7 +21,7 @@ module.exports = {
       via: 'tube'
     },
     observations: {
-      type: 'text'
+      type: 'string'
     },
 
     project: {

@@ -22,7 +22,7 @@ module.exports = {
       type: 'string'
     },
     observations: {
-      type: 'text'
+      type: 'string'
     },
     status: {
       type: 'string'

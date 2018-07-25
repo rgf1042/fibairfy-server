@@ -7,7 +7,7 @@ module.exports = {
   tableName: 'fiberfy_boxes',
   attributes: {
     name: {
-        type: 'string'
+      type: 'string'
     },
     uuid: {
       type: 'string'
@@ -20,13 +20,13 @@ module.exports = {
       required: true
     },
     inputFO: {
-      type: 'integer'
+      type: 'number'
     },
     outputFO: {
-      type: 'integer'
+      type: 'number'
     },
     observations: {
-      type: 'text'
+      type: 'string'
     },
     status: {
       type: 'string'

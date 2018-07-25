@@ -11,7 +11,7 @@ module.exports = {
     var password = req.param('password');
 
     if (!username || !password) {
-      return res.json(401, {flag: false, message: 'username and password required'});
+      return res.status(401).json({flag: false, message: 'username and password required'});
     }
 
     User.findOne({username: username}, function (message, user) {
@@ -44,10 +44,10 @@ module.exports = {
     var password = req.param('password');
 
     if (!username || !password) {
-      return res.json(401, {flag: false, message: 'username and password required'});
+      return res.status(401).json({flag: false, message: 'username and password required'});
     }
     ldap.search(username, function (data) {
-      if (data.err) res.json(401, {flag: false, message: data.error});
+      if (data.err) res.status(401).json({flag: false, message: data.error});
       if (data.cn === 'lectura') {
         ldap.authenticate({username: username, password: password}, function (auth) {
           if (auth.error) {
@@ -56,11 +56,9 @@ module.exports = {
             User.findOne({username: username}, function (message, user) {
               if (!user) { // User is not in fiberfy database we create one
                 User.create({username: username, isLdap: true}, function (err, user) {
-                  if (err) res.json(500, {flag: false, message: 'internal server error'});
+                  if (err) res.serverError({flag: false, message: 'internal server error'});
                   else {
                     // We issue token
-                    console.log(user)
-                    console.log(err)
                     let token = jwToken.issue({id: user.id});
             				res.set('Authorization','Bearer ' + token);
                     res.json({
@@ -73,7 +71,7 @@ module.exports = {
               } else { // There's this user inside fiberfy database
                 if (!user.isLdap) { // Exists but it's not LDAP
                   User.update({username: username, isLdap: true}, function (err, user) {
-                    if (err) res.json(500, {flag: false, message: 'internal server error'});
+                    if (err) res.serverError({flag: false, message: 'internal server error'});
                     // We issue token
                     let token = jwToken.issue({id: user.id});
             				res.set('Authorization','Bearer ' + token);

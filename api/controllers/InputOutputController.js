@@ -20,7 +20,6 @@ function processKML (path) {
 }
 
 function importSites (data, project, zone) {
-  console.log(zone)
   return new Promise((resolve, reject) => {
     try {
       if (data.type !== 'FeatureCollection') {
@@ -148,16 +147,13 @@ function importSites (data, project, zone) {
         Promise.all(pathsPromises).then(function (values) {
           resolve(result.concat(values))
         }).catch(function (reason) {
-          console.log(reason)
           reject(reason)
         })
       }).catch(function (reason) {
-        console.log(reason)
         reject(reason)
       })
     }
     catch (err) {
-      console.log('trace1: ' + err)
       reject(err)
     }
   })
@@ -187,7 +183,6 @@ function importSites (data, project, zone) {
         if (!req.body.project) {
           return res.badRequest('No project id was issued');
         }
-        console.log(req.body.defaultZone)
         if (mime.lookup(uploadedFiles[0].fd) === mime.lookup('.kmz')) {
           fs.createReadStream(uploadedFiles[0].fd)
             .pipe(unzip.Parse())

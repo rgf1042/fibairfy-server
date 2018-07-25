@@ -38,14 +38,14 @@ module.exports = {
     },
     latitude: {
       columnName: 'lat',
-      type: 'float'
+      type: 'number'
     },
     longitude: {
       columnName: 'lon',
-      type: 'float'
+      type: 'number'
     },
     elevation: {
-      type: 'integer'
+      type: 'number'
     },
     notification: {
       type: 'string',
@@ -66,32 +66,32 @@ module.exports = {
     },
     graphServer: {
       columnName: 'graph_server',
-      type: 'integer',
+      type: 'number',
       defaultsTo: 0
     },
     userCreated: {
       columnName: 'user_created',
-      type: 'integer',
+      type: 'number',
       defaultsTo: 1
     },
     userChanged: {
       columnName: 'user_changed',
-      type: 'integer'
+      type: 'number'
     },
     autoCreatedAt: {
       columnName: 'timestamp_created',
-      type: 'integer',
+      type: 'number',
       defaultsTo: 0
     },
     autoUpdatedAt: {
       columnName: 'timestamp_changed',
-      type: 'integer'
+      type: 'number'
     }
   },
   _attributes: {
     id: {
       rawType: 'MEDIUMINT(9)',
-      type: 'integer',
+      type: 'number',
       primaryKey: true,
       autoIncrement: true
     },
@@ -102,7 +102,7 @@ module.exports = {
     zone: {
       columnName: 'zone_id',
       rawType: 'MEDIUMINT(9)',
-      type: 'integer',
+      type: 'number',
       defaultsTo: 2413
     },
     observations: {
@@ -118,15 +118,15 @@ module.exports = {
     },
     latitude: {
       rawType: 'DECIMAL(10,6)',
-      type: 'float'
+      type: 'number'
     },
     longitude: {
       rawType: 'DECIMAL(10,6)',
-      type: 'float'
+      type: 'number'
     },
     elevation: {
       rawType: 'TINYINT(4)',
-      type: 'integer'
+      type: 'number'
     },
     notification: {
       rawType: 'VARCHAR(1024)',
@@ -142,7 +142,7 @@ module.exports = {
     project: {
       columnName: 'project_id',
       rawType: 'INT(11)',
-      type: 'integer'
+      type: 'number'
     },
     stable: {
       rawType: 'VARCHAR(25)',
@@ -152,31 +152,31 @@ module.exports = {
     graphServer: {
       columnName: 'graph_server',
       rawType: 'MEDIUMINT(9)',
-      type: 'integer',
+      type: 'number',
       defaultsTo: 0,
       comment: 'Foreign key to guifi_services (type SNPGraph)'
     },
     userCreated: {
       columnName: 'user_created',
       rawType: 'MEDIUMINT(9)',
-      type: 'integer',
+      type: 'number',
       defaultsTo: 0
     },
     userChanged: {
       columnName: 'user_changed',
       rawType: 'MEDIUMINT(9)',
-      type: 'integer'
+      type: 'number'
     },
     autoCreatedAt: {
       columnName: 'timestamp_created',
       rawType: 'INT(11)',
-      type: 'integer',
+      type: 'number',
       defaultsTo: 0
     },
     autoUpdatedAt: {
       columnName: 'timestamp_changed',
       rawType: 'INT(11)',
-      type: 'integer'
+      type: 'number'
     },
     toJSON: function () {
       const model = this.toObject();

@@ -28,7 +28,7 @@ module.exports = {
       via: 'cable'
     },
     observations: {
-      type: 'text'
+      type: 'string'
     },
     status: {
       type: 'string'
