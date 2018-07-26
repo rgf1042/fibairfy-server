@@ -19,7 +19,8 @@ module.exports = {
     },
     observations: {
       columnName: 'zone_description',
-      type: 'string'
+      type: 'string',
+      allowNull: true
     },
     type: {
       columnName: 'location_type',
@@ -38,14 +39,17 @@ module.exports = {
     },
     latitude: {
       columnName: 'lat',
-      type: 'number'
+      type: 'number',
+      allowNull: true
     },
     longitude: {
       columnName: 'lon',
-      type: 'number'
+      type: 'number',
+      allowNull: true
     },
     elevation: {
-      type: 'number'
+      type: 'number',
+      allowNull: true
     },
     notification: {
       type: 'string',
@@ -76,7 +80,8 @@ module.exports = {
     },
     userChanged: {
       columnName: 'user_changed',
-      type: 'number'
+      type: 'number',
+      allowNull: true
     },
     autoCreatedAt: {
       columnName: 'timestamp_created',
@@ -85,7 +90,8 @@ module.exports = {
     },
     autoUpdatedAt: {
       columnName: 'timestamp_changed',
-      type: 'number'
+      type: 'number',
+      allowNull: true
     }
   },
   _attributes: {

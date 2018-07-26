@@ -12,7 +12,8 @@ module.exports = {
      type: 'string'
    },
    nick: {
-     type: 'string'
+     type: 'string',
+     allowNull: true
    },
    body: {
      type: 'string'
@@ -26,18 +27,22 @@ module.exports = {
    },
    dnsServers: {
      columnName: 'dns_servers',
-     type: 'string'
+     type: 'string',
+     allowNull: true
    },
    ntpServers: {
      columnName: 'ntp_servers',
-     type: 'string'
+     type: 'string',
+     allowNull: true
    },
    graphServer: {
      columnName: 'graph_server',
-     type: 'string'
+     type: 'string',
+     allowNull: true
    },
    homepage: {
-     type: 'string'
+     type: 'string',
+     allowNull: true
    },
    notification: {
      type: 'string',
@@ -45,16 +50,20 @@ module.exports = {
    },
    ospfZone: {
      columnName: 'ospf_zone',
-     type: 'string'
+     type: 'string',
+     allowNull: true
    },
    minx: {
-     type: 'number'
+     type: 'number',
+     allowNull: true
    },
    miny: {
-     type: 'number'
+     type: 'number',
+     allowNull: true
    },
    maxx: {
-     type: 'number'
+     type: 'number',
+     allowNull: true
    },
    local: {
      type: 'string',
@@ -62,17 +71,21 @@ module.exports = {
    },
    nodexchangeUrl: {
      columnName: 'nodexchange_url',
-     type: 'string'
+     type: 'string',
+     allowNull: true
    },
    refresh: {
-     type: 'number'
+     type: 'number',
+     allowNull: true
    },
    remoteServerId: {
      columnName: 'remote_server_id',
-     type: 'number'
+     type: 'number',
+     allowNull: true
    },
    maxy: {
-     type: 'number'
+     type: 'number',
+     allowNull: true
    },
    weight: {
      type: 'number',
@@ -111,7 +124,8 @@ module.exports = {
    hostNodes: {
      columnName: 'host_nodes',
      type: 'number',
-     defaultsTo: 0
+     defaultsTo: 0,
+     allowNull: true
    }
  },
  _attributes: {
