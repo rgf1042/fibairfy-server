@@ -11,3 +11,15 @@ module.exports.localAuth = function (credentials, authorization, callback) {
         callback()
     })
 }
+
+module.exports.createUser = function (username, password, callback) {
+  User
+  .create(
+    {
+      username: username,
+      password: password
+    }).exec(function(err, user) {
+    if (err) return callback(err)
+    callback(err)
+  })
+}

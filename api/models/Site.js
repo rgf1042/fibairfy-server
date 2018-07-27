@@ -202,5 +202,14 @@ module.exports = {
     var seconds = Math.floor(new Date() / 1000);
     values.autoUpdatedAt = seconds;
     next();
+  },
+  beforeDestroy : function (values, next) {
+    if (values.where.id) {
+      Path.destroy({or: [{first: values.where.id}, {last: values.where.id}]}).exec(function (err) {
+        next(err);
+      })
+    } else {
+      next();
+    }
   }
 };

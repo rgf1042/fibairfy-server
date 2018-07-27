@@ -14,26 +14,40 @@ module.exports = function (req, res, next) {
     var pk = actionUtil.requirePk(req);
     Model.findOne(pk).exec(function (err, entity) {
       if (entity) {
+        var id;
+        try {
+          id = (req.options.model === 'project') ? entity.id : entity.project;
+        } catch (err) {
+          return res.badRequest('No model definition.')
+        }
+        if (!id) return res.badRequest('No project information supplied.')
         ProjectOwnership.findOne({
-          project: entity.project || entity.id,
+          project: id,
           user: req.token.id
         }).exec(function (err, projectowner) {
           if (err) return res.negotiate(err);
-          if (!projectowner) return res.json(401, {err: 'This User is not authorized in this project!'});
+          if (!projectowner) return res.status(401).json({err: 'This User is not authorized in this project!'});
           next();
         });
       } else {
-        return res.json(401, {err: 'This User is not authorized in this project!'});
+        return res.status(401).json({err: 'This User is not authorized in this project!'});
       }
     })
   }
   else {
+    var id;
+    try {
+      id = (req.options.model === 'project') ? data.id : data.project;
+    } catch (err) {
+      return res.badRequest('No model definition.')
+    }
+    if (!id) return res.badRequest('No project information supplied.')
     ProjectOwnership.findOne({
-      project: data.project || data.id,
+      project: id,
       user: req.token.id
     }).exec(function (err, projectowner) {
       if (err) return res.negotiate(err);
-      if (!projectowner) return res.json(401, {err: 'This User is not authorized in this project!'});
+      if (!projectowner) return res.status(401).json({err: 'This User is not authorized in this project!'});
       next();
     });
   }

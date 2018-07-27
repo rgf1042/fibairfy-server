@@ -1,9 +1,9 @@
 const request = require('supertest')
 const chai = require('chai')
-const auth = require('../../auth')
+const auth = require('../utils/auth')
 
 // Auth info
-const username = "test"
+const username = "testProject"
 const passwd = "password"
 var authorization = {}
 
@@ -18,8 +18,11 @@ var id
 
 describe('Project', function() {
   // First we have to login and get a valid token
-  before( function (done) {
-    auth.localAuth({username: username, password: passwd}, authorization, done)
+  before(function (done) {
+    auth.createUser(username, passwd, function (err) {
+      if (err) return done(err)
+      auth.localAuth({username: username, password: passwd}, authorization, done)
+    })
   })
 
   it('should create project', function(done){
@@ -35,7 +38,7 @@ describe('Project', function() {
           defaultZone: defaultZone
         })
       .end(function(err, response) {
-        if (err) return done(err, sails)
+        if (err) return done(err)
         id = response.body.id
         Project.findOne({ id: response.body.id }).exec(function(err, project) {
           if (err) return done(err, sails)
