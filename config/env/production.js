@@ -18,9 +18,11 @@ module.exports = {
    ***************************************************************************/
 
    models: {
-     datastore: 'default'
+     datastore: 'production'
    },
-
+   sockets: {
+     onlyAllowOrigins: ['http://localhost:1337']
+   }
   /***************************************************************************
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
