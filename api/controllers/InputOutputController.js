@@ -4,6 +4,7 @@
  * @description :: Server-side logic for managing Input/Output data
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
+const GeoJSON = require('geojson')
 const tj = require('togeojson')
 const fs = require('fs')
 const DOMParser = require('xmldom').DOMParser
@@ -17,6 +18,53 @@ function processKML (path) {
   let converted = tj.kml(kml)
   fs.unlinkSync(path)
   return converted
+}
+
+async function exportProjectGeoJSON (id) {
+  // First we validate project
+  let project
+  try {
+    project = await Project.findOne(id)
+  } catch (err) {
+    throw err
+  }
+  // If we don't have a project with given id we must return err
+  if (!project) throw new Error('This project doesn\'t exist!')
+  let sites
+  try {
+    sites = await Site.find({project: id})
+  } catch (err) {
+    throw err
+  }
+
+  let paths
+  try {
+    paths = await Path.find({project: id}).populate('first').populate('last')
+  } catch (err) {
+    throw err
+  }
+  let data = []
+  for (let x in sites) {
+    let site = sites[x]
+    data.push({'lat': site.latitude, 'lng': site.longitude, 'type': site.type, 'status': site.status, 'name': site.name})
+  }
+  // Now we have everything
+  for (let x in paths) {
+    let path = paths[x]
+    let pLine = []
+    let intermedial = path.intermedial
+
+    for (let idxPolyline in intermedial) {
+      let latlng = intermedial[idxPolyline]
+      pLine.push([latlng[1], latlng[0]])
+    }
+
+    pLine.unshift([path.first.longitude, path.first.latitude]) // We put in front of the array the first site
+    pLine.push([path.last.longitude, path.last.latitude]) // We put in front of the array the last site
+
+    data.push({'polyline': pLine, 'type': path.type, 'name': path.name})
+  }
+  return GeoJSON.parse(data, {'Point': ['lat', 'lng'], 'LineString': 'polyline'})
 }
 
 function importSites (data, project, zone) {
@@ -160,8 +208,19 @@ function importSites (data, project, zone) {
 }
 
  module.exports = {
-   exports: function (req, res) {
-
+   exports: async function (req, res) {
+     let id = req.param('id')
+     if (!id) {
+       return res.badRequest('No project id was supplied.')
+     }
+     let data
+     try {
+       data = await exportProjectGeoJSON(id)
+     } catch (err) {
+       console.log(err)
+       return res.badRequest('Error')
+     }
+     return res.json(data)
    },
 
    imports: function (req, res) {
