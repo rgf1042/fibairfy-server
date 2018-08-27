@@ -1,0 +1,12 @@
+sudo: required
+language: node_js
+
+services:
+  - docker
+
+before_install:
+- before_script.sh
+
+
+script:
+- gosu fiberfy npm run test-dev
