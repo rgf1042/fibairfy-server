@@ -5,7 +5,7 @@ services:
   - docker
 
 before_install:
-- before_script.sh
+- ./before_script.sh
 
 
 script:
