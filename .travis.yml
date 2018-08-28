@@ -5,7 +5,7 @@ services:
   - docker
 
 before_install:
-- git pull guifi/fiberfy:sails
+- docker pull guifi/fiberfy:sails
 
 
 script:
