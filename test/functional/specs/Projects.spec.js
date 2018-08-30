@@ -52,6 +52,35 @@ describe('Project', function() {
       })
   })
 
+  it('should count total projects', function (done) {
+    Project.count().exec(function (err, count) {
+      if (err) return done(err)
+      request(sails.hooks.http.app)
+        .get('/api/v1/project/count')
+        .set('Authorization', 'bearer ' + authorization.token)
+        .end(function(err, response) {
+          if (err) return done(err)
+          chai.assert.equal(response.body.count, count)
+          done()
+        })
+    })
+  })
+
+  it('should count projects with given criteria', function (done) {
+    Project.count({ where: { name: { contains: name}}}).exec(function (err, count) {
+      if (err) return done(err)
+      request(sails.hooks.http.app)
+        .get('/api/v1/project/count')
+        .set('Authorization', 'bearer ' + authorization.token)
+        .query({ where: { name: { contains: 'default'}}})
+        .end(function(err, response) {
+          if (err) return done(err)
+          chai.assert.equal(response.body.count, count)
+          done()
+        })
+    })
+  })
+
   it('should delete project', function(done){
     // Delete Project
     request(sails.hooks.http.app)

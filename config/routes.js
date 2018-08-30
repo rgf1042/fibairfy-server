@@ -60,5 +60,8 @@ module.exports.routes = {
   /* IO */
   'POST /api/v1/import': 'InputOutputController.imports',
 
-  'GET /api/v1/export/:id': 'InputOutputController.exports'
+  'GET /api/v1/export/:id': 'InputOutputController.exports',
+
+  /* Project */
+  'GET /api/v1/project/count': 'ProjectController.count'
 };

@@ -31,5 +31,24 @@ module.exports = {
 			}
 			res.ok(result);
 		})
+	},
+	count: async function (req, res) {
+		var actionUtil = require('sails/lib/hooks/blueprints/actionUtil')
+
+		var parseBlueprintOptions = req.options.parseBlueprintOptions || req._sails.config.blueprints.parseBlueprintOptions
+
+	  // Set the blueprint action for parseBlueprintOptions.
+	  req.options.blueprintAction = 'find'
+
+	  var queryOptions = parseBlueprintOptions(req)
+		delete queryOptions.criteria.limit;
+		delete queryOptions.criteria.sort;
+		var numRecords
+		try {
+			numRecords = await Project.count(queryOptions.criteria)
+		} catch (e) {
+			res.serverError(e)
+		}
+		res.ok({count: numRecords})
 	}
 };
