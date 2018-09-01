@@ -27,10 +27,10 @@ module.exports = {
     status: {
       type: 'string'
     },
-    /* cables: {
+    cables: {
       collection: 'Cable',
       via: 'intermedial'
-    }, */
+    },
     project: {
       model: 'Project'
     }
