@@ -19,7 +19,7 @@ module.exports = {
 	  }
 
 	  // Lookup for records that match the specified criteria
-	  var query = Model.find({ type: {'!': ['node']}}) // We add this line to block all Guifi.net Node and Supernode stuff
+	  var query = Model.find({ type: {'!=': ['node']}}) // We add this line to block all Guifi.net Node and Supernode stuff
 	  .where( actionUtil.parseCriteria(req) )
 	  .limit( actionUtil.parseLimit(req) )
 	  .skip( actionUtil.parseSkip(req) )

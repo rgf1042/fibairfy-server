@@ -20,17 +20,17 @@ function processKML (path) {
   return converted
 }
 
-async function exportData (criteria) {
+async function exportData (criteriaSites, criteriaPaths) {
   let sites
   try {
-    sites = await Site.find(criteria)
+    sites = await Site.find(criteriaSites)
   } catch (err) {
     throw err
   }
 
   let paths
   try {
-    paths = await Path.find(criteria).populate('first').populate('last')
+    paths = await Path.find(criteriaPaths).populate('first').populate('last')
   } catch (err) {
     throw err
   }
@@ -226,7 +226,7 @@ function importSites (data, project, zone) {
 
      let data
      try {
-       data = await exportData({project: id})
+       data = await exportData({project: id}, {project: id})
      } catch (err) {
        console.log(err)
        return res.badRequest(err)
@@ -237,7 +237,7 @@ function importSites (data, project, zone) {
    exportsAll: async function (req, res) {
      let data
      try {
-       data = await exportData()
+       data = await exportData({ type: {'!=': ['node']}})
      } catch (err) {
        console.log(err)
        return res.badRequest(err)
