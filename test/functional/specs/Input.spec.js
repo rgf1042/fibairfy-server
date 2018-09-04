@@ -124,7 +124,7 @@ describe('Input', function() {
           response.body.should.contain.a.thing.with.property('name', wellContent[x].name)
           response.body.should.contain.a.thing.with.property('type', wellContent[x].type)
         }
-        eraseContent(id, done)
+        done()
       })
   })
 })

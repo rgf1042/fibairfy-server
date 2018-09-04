@@ -196,7 +196,7 @@ describe('Civil', function() {
     Path.findOne(path.id).exec(function (err, path) {
       if (err) return done(err)
       chai.expect(path).to.be.undefined
-      done(err)
+      done()
     })
   })
 })

@@ -20,26 +20,17 @@ function processKML (path) {
   return converted
 }
 
-async function exportProjectGeoJSON (id) {
-  // First we validate project
-  let project
-  try {
-    project = await Project.findOne(id)
-  } catch (err) {
-    throw err
-  }
-  // If we don't have a project with given id we must return err
-  if (!project) throw new Error('This project doesn\'t exist!')
+async function exportData (criteria) {
   let sites
   try {
-    sites = await Site.find({project: id})
+    sites = await Site.find(criteria)
   } catch (err) {
     throw err
   }
 
   let paths
   try {
-    paths = await Path.find({project: id}).populate('first').populate('last')
+    paths = await Path.find(criteria).populate('first').populate('last')
   } catch (err) {
     throw err
   }
@@ -58,7 +49,6 @@ async function exportProjectGeoJSON (id) {
       let latlng = intermedial[idxPolyline]
       pLine.push([latlng[1], latlng[0]])
     }
-
     pLine.unshift([path.first.longitude, path.first.latitude]) // We put in front of the array the first site
     pLine.push([path.last.longitude, path.last.latitude]) // We put in front of the array the last site
 
@@ -190,7 +180,7 @@ function importSites (data, project, zone) {
           } catch (err) {
             reject(err)
           }
-          
+
           pathsPromises.push(Path.create({
             name: path.name,
             type: path.type,
@@ -223,16 +213,37 @@ function importSites (data, project, zone) {
      if (!id) {
        return res.badRequest('No project id was supplied.')
      }
+
+     // First we validate project
+     let project
+     try {
+       project = await Project.findOne(id)
+     } catch (err) {
+       throw err
+     }
+     // If we don't have a project with given id we must return err
+     if (!project) throw new Error('This project doesn\'t exist!')
+
      let data
      try {
-       data = await exportProjectGeoJSON(id)
+       data = await exportData({project: id})
      } catch (err) {
        console.log(err)
-       return res.badRequest('Error')
+       return res.badRequest(err)
      }
      return res.json(data)
    },
 
+   exportsAll: async function (req, res) {
+     let data
+     try {
+       data = await exportData()
+     } catch (err) {
+       console.log(err)
+       return res.badRequest(err)
+     }
+     return res.json(data)
+   },
    imports: function (req, res) {
      req.file('data').upload({
         // don't allow the total upload size to exceed ~10MB

@@ -56,7 +56,7 @@ describe('Output', function() {
     })
   })
 
-  it('should export a feature array with equal size', function(done) {
+  it('should export a feature array with equal size (project)', function(done) {
     request(sails.hooks.http.app)
       .get('/api/v1/export/' + id)
       .set('Authorization', 'bearer ' + authorization.token)
@@ -70,7 +70,7 @@ describe('Output', function() {
       })
   })
 
-  it('should export geometry values well formatted', function(done) {
+  it('should export geometry values well formatted (project)', function(done) {
     request(sails.hooks.http.app)
       .get('/api/v1/export/' + id)
       .set('Authorization', 'bearer ' + authorization.token)
@@ -96,7 +96,26 @@ describe('Output', function() {
           }
           chai.assert.isOk(flag)
         }
-        eraseContent(id, done)
+        done()
       })
+  })
+
+  it('should export a feature array with equal size (all)', async function (done) {
+      let number = 0
+      try {
+        number = await Path.count()
+        number += await Site.count()
+      } catch (err) {
+        return done(err)
+      }
+      request(sails.hooks.http.app)
+        .get('/api/v1/export/all')
+        .set('Authorization', 'bearer ' + authorization.token)
+        .end(function(err, response) {
+          if (err) return done(err)
+          // First we test sizes between number and response
+          chai.assert.strictEqual(number, response.body.features.length)
+          done()
+        })
   })
 })
