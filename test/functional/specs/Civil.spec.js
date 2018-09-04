@@ -2,6 +2,7 @@ const request = require('supertest')
 const chai = require('chai')
 const auth = require('../utils/auth')
 const project = require('../utils/project')
+const geolib = require('geolib')
 
 // We enable chai-things
 chai.should()
@@ -35,6 +36,8 @@ var site2 = {
   status: 'Planned',
   zone: 2413
 }
+
+const distance = geolib.getDistance(site1, site2)
 
 var path = {
   name: 'pathTest1',
@@ -106,6 +109,7 @@ describe('Civil', function() {
         chai.assert.equal(response.body.first, path.first)
         chai.assert.equal(response.body.last, path.last)
         chai.assert.equal(response.body.observations, path.observations)
+        chai.assert.equal(response.body.distance, distance)
         path.id = response.body.id
         done()
       })
@@ -144,6 +148,32 @@ describe('Civil', function() {
         chai.assert.equal(response.body.name, newName)
         chai.assert.equal(response.body.id, site1.id)
         done()
+      })
+  })
+
+  it('should update a site geoloc with associated paths and then update paths distances ', function(done) {
+    let latitude = site1.latitude + 0.53698
+    let newDistance = geolib.getDistance({
+      latitude: latitude,
+      longitude: site1.longitude
+    }, site2)
+
+    request(sails.hooks.http.app)
+      .put('/api/v1/site/' + site1.id)
+      .set('Authorization', 'bearer ' + authorization.token)
+      .send({
+        latitude: latitude,
+        project: projectId
+      })
+      .end(function(err, response) {
+        if (err) return done(err)
+        chai.assert.equal(response.body.latitude, latitude)
+        chai.assert.equal(response.body.id, site1.id)
+        Path.findOne(path.id).exec(function (err, path) {
+          if (err) return done(err)
+          chai.assert.equal(path.distance, newDistance)
+          done()
+        })
       })
   })
 

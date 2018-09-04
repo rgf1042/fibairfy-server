@@ -27,6 +27,10 @@ module.exports = {
     status: {
       type: 'string'
     },
+    distance: {
+      type: 'number',
+      required: true
+    },
     cables: {
       collection: 'Cable',
       via: 'intermedial'

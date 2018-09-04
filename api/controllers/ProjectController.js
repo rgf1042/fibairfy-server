@@ -12,9 +12,9 @@ module.exports = {
 
 
     // Create new instance of model using data from params
-		let result
+		let result;
 		try {
-			result = await Project.create(data).fetch()
+			result = await Project.create(data).fetch();
 		}
 		catch (err) {
 			return res.serverError(err);
@@ -33,22 +33,22 @@ module.exports = {
 		})
 	},
 	count: async function (req, res) {
-		var actionUtil = require('sails/lib/hooks/blueprints/actionUtil')
+		var actionUtil = require('sails/lib/hooks/blueprints/actionUtil');
 
-		var parseBlueprintOptions = req.options.parseBlueprintOptions || req._sails.config.blueprints.parseBlueprintOptions
+		var parseBlueprintOptions = req.options.parseBlueprintOptions || req._sails.config.blueprints.parseBlueprintOptions;
 
 	  // Set the blueprint action for parseBlueprintOptions.
-	  req.options.blueprintAction = 'find'
+	  req.options.blueprintAction = 'find';
 
-	  var queryOptions = parseBlueprintOptions(req)
+	  var queryOptions = parseBlueprintOptions(req);
 		delete queryOptions.criteria.limit;
 		delete queryOptions.criteria.sort;
-		var numRecords
+		var numRecords;
 		try {
-			numRecords = await Project.count(queryOptions.criteria)
+			numRecords = await Project.count(queryOptions.criteria);
 		} catch (e) {
-			res.serverError(e)
+			res.serverError(e);
 		}
-		res.ok({count: numRecords})
+		res.ok({count: numRecords});
 	}
 };

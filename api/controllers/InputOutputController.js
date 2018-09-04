@@ -177,17 +177,27 @@ function importSites (data, project, zone) {
         sitesPromises.push(Site.create(sites[x]))
       }
       let result = []
-      Promise.all(sitesPromises).then(function (values) {
+      Promise.all(sitesPromises).then(async function (values) {
         for (let x in paths) {
           let path = paths[x]
           path.intermedial.splice(0, 1)
           path.intermedial.splice(path.intermedial.length - 1, 1)
+
+          // We calculate distances
+          let distance
+          try {
+            distance = await sails.helpers.getDistancePath(values[path.posIni].id, values[path.posEnd].id, path.intermedial)
+          } catch (err) {
+            reject(err)
+          }
+          
           pathsPromises.push(Path.create({
             name: path.name,
             type: path.type,
             intermedial: path.intermedial,
             first: values[path.posIni].id,
             last: values[path.posEnd].id,
+            distance: distance,
             project: project
           }))
           result = result.concat(values)
