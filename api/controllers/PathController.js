@@ -86,7 +86,7 @@ module.exports = {
 			} catch (err) {
 				res.badRequest(err);
 			}
-			
+
 			// Create new instance of model using data from params
 	    Model.create(data).meta(queryOptions.meta).exec(function created (err, newInstance) {
 
@@ -185,7 +185,7 @@ module.exports = {
 				let intermedial = queryOptions.valuesToSet.intermedial || matchingRecord.intermedial;
 
 				try {
-					queryOptions.valuesToSet.distance = await sails.helpers.getDistancePath(data.first, data.last, data.intermedial);
+					queryOptions.valuesToSet.distance = await sails.helpers.getDistancePath(first, last, intermedial);
 				} catch (err) {
 					res.badRequest(err);
 				}
