@@ -1,0 +1,14 @@
+[Unit]
+Description=Fiberfy server service unit
+After=network.target
+
+[Service]
+Environment="NODE_ENV=production"
+Type=simple
+User=fiberfy
+WorkingDirectory=/home/fiberfy/fiberfy-server/
+ExecStart=/home/fiberfy/node/bin/node app.js
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
