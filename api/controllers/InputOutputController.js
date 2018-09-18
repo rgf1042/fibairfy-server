@@ -144,6 +144,7 @@ function importSites (data, project, zone, threshold) {
           newSite['latitude'] = paths[x].intermedial[0][0]
           newSite['longitude'] = paths[x].intermedial[0][1]
           newSite['project'] = project
+          newSite['status'] = 'Planned'
           newSite['zone'] = zone
           sites.push(newSite)
           posIni = sites.length - 1
@@ -156,6 +157,7 @@ function importSites (data, project, zone, threshold) {
           newSite['latitude'] = paths[x].intermedial[end][0]
           newSite['longitude'] = paths[x].intermedial[end][1]
           newSite['project'] = project
+          newSite['status'] = 'Planned'
           newSite['zone'] = zone
           sites.push(newSite)
           posEnd = sites.length - 1
@@ -187,6 +189,7 @@ function importSites (data, project, zone, threshold) {
             intermedial: path.intermedial,
             first: values[path.posIni].id,
             last: values[path.posEnd].id,
+            status: path.status,
             distance: distance,
             project: project
           }))
