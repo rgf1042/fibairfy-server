@@ -30,5 +30,20 @@ module.exports = {
       via: 'project',
       through: 'ProjectOwnership'
     }
+  },
+  beforeDestroy : async function (criteria, proceed) {
+    if (criteria.where.id) {
+      try {
+        await Site.destroy({project: criteria.where.id})
+        await Path.destroy({project: criteria.where.id})
+        await Cable.destroy({project: criteria.where.id})
+        await Box.destroy({project: criteria.where.id})
+        proceed();
+      } catch (err) {
+        proceed(err);
+      }
+    } else {
+      proceed();
+    }
   }
 };
