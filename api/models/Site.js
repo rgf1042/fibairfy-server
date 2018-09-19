@@ -5,7 +5,7 @@
 
 module.exports = {
   migrate: 'safe',
-  tableName: 'guifi_location',
+  tableName: 'fiberfy_location',
   attributes: {
     updatedAt: false,
     createdAt: false,
