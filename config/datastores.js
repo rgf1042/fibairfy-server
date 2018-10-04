@@ -17,8 +17,12 @@ module.exports.datastores = {
   * Installed by default.                                                    *
   *                                                                          *
   ***************************************************************************/
-  localDiskDb: {
-    adapter: require('sails-disk')
+  testing: {
+    adapter: 'sails-mysql',
+    host: 'database',
+    user: 'guifi',
+    password: 'guifi',
+    database: 'guifitest'
   },
 
   /***************************************************************************
@@ -32,9 +36,9 @@ module.exports.datastores = {
   default: {
      adapter: 'sails-mysql',
      host: 'database',
-     user: 'guifi', //optional
-     password: 'guifi', //optional
-     database: 'guifidev' //optional
+     user: 'guifi',
+     password: 'guifi',
+     database: 'guifidev'
   }
 
 };

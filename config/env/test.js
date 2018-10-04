@@ -3,7 +3,7 @@ module.exports = {
     level: 'error'
   },
   models: {
-    datastore: 'localDiskDb',
+    datastore: 'testing',
     migrate: 'drop'
   }
 }
