@@ -98,7 +98,8 @@ lib-cov
 *.pid
 npm-debug.log
 assets/js/bundle.js
-
+assets/swagger/*
+assets/css/swagger-ui.css
 
 
 

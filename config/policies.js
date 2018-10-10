@@ -58,6 +58,10 @@ module.exports.policies = {
     '*': true // We dont need authorization here, allowing public access
   },
 
+  'SwaggerController': {
+    '*': true
+  },
+
   // ACL
   'BoxController': {
     'create': ['isAuthorized','canWrite'],

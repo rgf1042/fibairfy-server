@@ -46,10 +46,6 @@ module.exports.routes = {
 
   'POST /auth/loginLDAP': 'AuthController.loginLDAP',
 
-  'POST /auth/loginHTML': 'AuthController.loginHTML',
-
-  'POST /auth/logoutHTML': 'AuthController.logoutHTML',
-
 
   /* IO */
   'POST /api/v1/import': 'InputOutputController.imports',
@@ -61,5 +57,8 @@ module.exports.routes = {
   /* Project */
   'GET /api/v1/project/count': 'ProjectController.count',
 
-  'GET /api/v1/stats/project/:id': 'StatsController.project'
+  'GET /api/v1/stats/project/:id': 'StatsController.project',
+
+  /* Swagger */
+  'GET /api-doc': 'SwaggerController.view'
 };
