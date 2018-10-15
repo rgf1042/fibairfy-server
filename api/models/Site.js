@@ -6,6 +6,50 @@
 module.exports = {
   migrate: 'safe',
   tableName: 'fiberfy_location',
+  _swagger: {
+    attributes: {
+      ignore: {
+        request: {
+          id: true,
+          autoUpdatedAt: true,
+          autoCreatedAt: true
+        },
+        response: {
+
+        }
+      },
+      append: {
+        request: {
+          type: {
+            enum: [
+              'notdefined',
+              'manhole',
+              'pole',
+              'room',
+              'cabinet',
+              'poe',
+              'hook',
+              'jump'
+            ]
+          }
+        },
+        response: {
+          type: {
+            enum: [
+              'notdefined',
+              'manhole',
+              'pole',
+              'room',
+              'cabinet',
+              'poe',
+              'hook',
+              'jump'
+            ]
+          }
+        }
+      }
+    }
+  },
   attributes: {
     updatedAt: false,
     createdAt: false,

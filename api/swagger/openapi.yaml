@@ -1,0 +1,283 @@
+openapi: 3.0.0
+info:
+  version: '18.10'
+  title: fiberfy-server backend
+paths:
+  /auth/loginLDAP:
+    post:
+      description: Login using LDAP and Returns a JWT token to the caller
+      operationId: authLoginLDAP
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: LDAP username
+                password:
+                  type: string
+                  description: LDAP password
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /auth/login:
+    post:
+      description: Login using local authentication and Returns a JWT token to the caller
+      operationId: authLoginLocal
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: LDAP username
+                password:
+                  type: string
+                  description: LDAP password
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /import:
+    post:
+      description: >-
+        Import geographical data (PolyLines and Points) as civil infrastructue
+        (Sites, Paths)
+      operationId: import
+      tags:
+        - I/O
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  format: binary
+                  description: 'The file to upload. In format KML, KMZ or GeoJSON'
+                project:
+                  type: integer
+                  description: Project id to import data
+                defaultZone:
+                  type: integer
+                  description: Zone to import data
+                threshold:
+                  type: integer
+                  description: >-
+                    Threshold to attach near paths to the same site in meters.
+                    By default is 10 meters.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /site:
+    post:
+      description: Post a Site (Locations which stores one point of civil infrastructure)
+      operationId: sitePost
+      tags:
+        - Site
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: 'models/Site.json#/request'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Site.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      description: Query Site model
+      operationId: siteGet
+      tags:
+        - Site
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  $ref: 'models/Site.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /site/{id}:
+    patch:
+      description: Update a Site (Locations which stores one point of civil infrastructure)
+      operationId: sitePatch
+      tags:
+        - Site
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: 'models/Site.json#/request'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Site.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      description: Destoy a Site (Locations which stores one point of civil infrastructure)
+      operationId: siteDelete
+      tags:
+        - Site
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Site.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      description: Get given Site information (Locations which stores one point of civil infrastructure)
+      operationId: siteGetOne
+      tags:
+        - Site
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Site.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /swagger:
+    x-swagger-pipe: swagger_raw
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    LoginResponse:
+      required:
+        - token
+      properties:
+        token:
+          type: string
+        flag:
+          type: boolean
+          enum:
+            - true
+        user:
+          type: object
+          $ref: 'models/User.json#/response'
+    ImportResponse:
+      properties:
+        sites:
+          type: array
+          items:
+            type: object
+            $ref: 'models/Site.json#/response'
+        paths:
+          type: array
+          items:
+            type: object
+            $ref: 'models/Path.json#/response'
+    ErrorResponse:
+      required:
+        - msg
+      properties:
+        msg:
+          type: string

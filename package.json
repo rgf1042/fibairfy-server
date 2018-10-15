@@ -42,7 +42,7 @@
   "scripts": {
     "test": "eslint --ignore-pattern '/client/' --ignore-pattern '/assets/' --ignore-pattern 'app.js' . && eslint --no-eslintrc -c client/eslintrc.json client/. && NODE_ENV=test node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/bootstrap.test.js test/**/*.spec.js",
     "test-dev": "NODE_ENV=test node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/**/*.spec.js",
-    "doc": "cp node_modules/swagger-ui/dist/swagger-ui.css assets/css/ && cp api/swagger/openapi.json assets/swagger/ && node doc.js && cd api/swagger && browserify swagger.js -o ../../assets/js/bundle.js"
+    "doc": "cp node_modules/swagger-ui/dist/swagger-ui.css assets/css/ && cp api/swagger/openapi.yaml assets/swagger/ && node doc.js && cd api/swagger && browserify swagger.js -o ../../assets/js/bundle.js"
   },
   "main": "app.js",
   "repository": "guifi/fiberfy-server",

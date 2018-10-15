@@ -168,7 +168,7 @@ function importSites (data, project, zone, threshold) {
       for (let x in sites) {
         sitesPromises.push(Site.create(sites[x]))
       }
-      let result = []
+      let resultSites = []
       Promise.all(sitesPromises).then(async function (values) {
         for (let x in paths) {
           let path = paths[x]
@@ -193,10 +193,14 @@ function importSites (data, project, zone, threshold) {
             distance: distance,
             project: project
           }))
-          result = result.concat(values)
+          resultSites = values
         }
         Promise.all(pathsPromises).then(function (values) {
-          resolve(result.concat(values))
+          let result = {
+            sites: resultSites,
+            paths: values
+          }
+          resolve(result)
         }).catch(function (reason) {
           reject(reason)
         })
