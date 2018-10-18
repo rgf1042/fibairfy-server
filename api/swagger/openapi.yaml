@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: '18.10'
+  version: '1.0'
   title: fiberfy-server backend
 paths:
   /auth/loginLDAP:

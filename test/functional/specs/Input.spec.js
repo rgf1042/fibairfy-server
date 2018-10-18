@@ -29,72 +29,77 @@ function eraseContent (project, callback) {
 
 // Well attributes (to compare)
 const wellContent = [
-  {
-    'notification': 'guifi@guifi.net',
-    'stable': 'Yes',
-    'name': 'siteTest1',
-    'type': 'manhole',
-    'latitude': 41.8368598,
-    'longitude': 2.2798884,
-    'status': 'Planned',
-    'graphServer': 0,
-    'userCreated': 1,
-    'autoCreatedAt': 1521457695,
-    'zone': 2413
-  },
-  {
-    'notification': 'guifi@guifi.net',
-    'stable': 'Yes',
-    'name': 'siteTest2',
-    'type': 'manhole',
-    'latitude': 41.8368998,
-    'longitude': 2.2826457,
-    'status': 'Planned',
-    'graphServer': 0,
-    'userCreated': 1,
-    'autoCreatedAt': 1521457695,
-    'zone': 2413
-  },
-  {
-    'notification': 'guifi@guifi.net',
-    'stable': 'Yes',
-    'name': 'Punto 3',
-    'type': 'manhole',
-    'latitude': 41.8348694,
-    'longitude': 2.2809398,
-    'status': 'Planned',
-    'graphServer': 0,
-    'userCreated': 1,
-    'autoCreatedAt': 1521457695,
-    'zone': 2413
-  },
-  {
-    'notification': 'guifi@guifi.net',
-    'stable': 'Yes',
-    'id': 100680,
-    'name': 'siteTest3',
-    'type': 'manhole',
-    'latitude': 41.8372915,
-    'longitude': 2.2810364,
-    'status': 'Planned',
-    'graphServer': 0,
-    'userCreated': 1,
-    'autoCreatedAt': 1521457695,
-    'zone': 2413
-  },
-  {
-    'notification': 'guifi@guifi.net',
-    'stable': 'Yes',
-    'name': 'siteTest4',
-    'type': 'manhole',
-    'latitude': 41.8368279,
-    'longitude': 2.2814226,
-    'status': 'Planned',
-    'graphServer': 0,
-    'userCreated': 1,
-    'autoCreatedAt': 1521457695,
-    'zone': 2413
-  }
+  sites: [
+    {
+      'notification': 'guifi@guifi.net',
+      'stable': 'Yes',
+      'name': 'siteTest1',
+      'type': 'manhole',
+      'latitude': 41.8368598,
+      'longitude': 2.2798884,
+      'status': 'Planned',
+      'graphServer': 0,
+      'userCreated': 1,
+      'autoCreatedAt': 1521457695,
+      'zone': 2413
+    },
+    {
+      'notification': 'guifi@guifi.net',
+      'stable': 'Yes',
+      'name': 'siteTest2',
+      'type': 'manhole',
+      'latitude': 41.8368998,
+      'longitude': 2.2826457,
+      'status': 'Planned',
+      'graphServer': 0,
+      'userCreated': 1,
+      'autoCreatedAt': 1521457695,
+      'zone': 2413
+    },
+    {
+      'notification': 'guifi@guifi.net',
+      'stable': 'Yes',
+      'name': 'Punto 3',
+      'type': 'manhole',
+      'latitude': 41.8348694,
+      'longitude': 2.2809398,
+      'status': 'Planned',
+      'graphServer': 0,
+      'userCreated': 1,
+      'autoCreatedAt': 1521457695,
+      'zone': 2413
+    },
+    {
+      'notification': 'guifi@guifi.net',
+      'stable': 'Yes',
+      'id': 100680,
+      'name': 'siteTest3',
+      'type': 'manhole',
+      'latitude': 41.8372915,
+      'longitude': 2.2810364,
+      'status': 'Planned',
+      'graphServer': 0,
+      'userCreated': 1,
+      'autoCreatedAt': 1521457695,
+      'zone': 2413
+    },
+    {
+      'notification': 'guifi@guifi.net',
+      'stable': 'Yes',
+      'name': 'siteTest4',
+      'type': 'manhole',
+      'latitude': 41.8368279,
+      'longitude': 2.2814226,
+      'status': 'Planned',
+      'graphServer': 0,
+      'userCreated': 1,
+      'autoCreatedAt': 1521457695,
+      'zone': 2413
+    }
+  ],
+  paths: [
+
+  ]
 ]
 
 describe('Input', function() {
@@ -121,8 +126,8 @@ describe('Input', function() {
       .end(function(err, response) {
         if (err) return done(err)
         for (let x in wellContent) {
-          response.body.should.contain.a.thing.with.property('name', wellContent[x].name)
-          response.body.should.contain.a.thing.with.property('type', wellContent[x].type)
+          response.body.sites.should.contain.a.thing.with.property('name', wellContent[x].name)
+          response.body.sites.should.contain.a.thing.with.property('type', wellContent[x].type)
         }
         done()
       })
