@@ -125,7 +125,7 @@ describe('Input', function() {
       .attach('data', 'test/assets/well.geojson')
       .end(function(err, response) {
         if (err) return done(err)
-        for (let x in wellContent) {
+        for (let x in  wellContent.sites) {
           response.body.sites.should.contain.a.thing.with.property('name', wellContent.sites[x].name)
           response.body.sites.should.contain.a.thing.with.property('type', wellContent.sites[x].type)
         }
