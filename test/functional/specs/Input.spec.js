@@ -28,7 +28,7 @@ function eraseContent (project, callback) {
 }
 
 // Well attributes (to compare)
-const wellContent = [
+const wellContent = {
   sites: [
     {
       'notification': 'guifi@guifi.net',
@@ -100,7 +100,7 @@ const wellContent = [
   paths: [
 
   ]
-]
+}
 
 describe('Input', function() {
   before( function (done) {
