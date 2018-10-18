@@ -126,8 +126,8 @@ describe('Input', function() {
       .end(function(err, response) {
         if (err) return done(err)
         for (let x in wellContent) {
-          response.body.sites.should.contain.a.thing.with.property('name', wellContent[x].name)
-          response.body.sites.should.contain.a.thing.with.property('type', wellContent[x].type)
+          response.body.sites.should.contain.a.thing.with.property('name', wellContent.sites[x].name)
+          response.body.sites.should.contain.a.thing.with.property('type', wellContent.sites[x].type)
         }
         done()
       })
