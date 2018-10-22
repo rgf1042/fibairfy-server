@@ -53,7 +53,7 @@ async function exportData (criteriaSites, criteriaPaths) {
     pLine.unshift([path.first.longitude, path.first.latitude]) // We put in front of the array the first site
     pLine.push([path.last.longitude, path.last.latitude]) // We put in front of the array the last site
 
-    data.push({'polyline': pLine, 'type': path.type, 'name': path.name})
+    data.push({'polyline': pLine, 'type': path.type, 'name': path.name, 'status': path.status})
   }
   return GeoJSON.parse(data, {'Point': ['lat', 'lng'], 'LineString': 'polyline'})
 }
