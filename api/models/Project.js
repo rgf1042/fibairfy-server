@@ -6,6 +6,38 @@
 module.exports = {
   tableName: 'fiberfy_projects',
   cascadeOnDestroy: true,
+  _swagger: {
+    attributes: {
+      ignore: {
+        request: {
+          id: true,
+          updatedAt: true,
+          createdAt: true,
+        },
+        response: {
+
+        }
+      },
+      append: {
+        request: {
+        },
+        response: {
+        }
+      },
+      additions: {
+        request: {
+          defaultZone: {
+            type: 'integer'
+          }
+        },
+        response: {
+          defaultZone: {
+            type: 'integer'
+          }
+        }
+      }
+    }
+  },
   attributes: {
     name: {
       type: 'string'

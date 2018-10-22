@@ -68,7 +68,7 @@ paths:
   /import:
     post:
       description: >-
-        Import geographical data (PolyLines and Points) as civil infrastructue
+        Import geographical data (PolyLines and Points) as civil infrastructure
         (Sites, Paths)
       operationId: import
       tags:
@@ -103,6 +103,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ImportResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /export/{id}:
+    get:
+      description: >-
+        Export project civil infrastructure (geographical data) as PolyLines and Points
+        (Sites, Paths) in GeoJSON format
+      operationId: export
+      tags:
+        - I/O
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: Project id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExportResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /export/all:
+    get:
+      description: >-
+        Export all civil infrastructure (geographical data) as PolyLines and Points
+        (Sites, Paths) in GeoJSON format
+      operationId: export
+      tags:
+        - I/O
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExportResponse'
         default:
           description: Error
           content:
@@ -242,6 +294,323 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /path:
+    post:
+      description: Post a Path (Civil work paths between Sites)
+      operationId: pathPost
+      tags:
+        - Path
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: 'models/Path.json#/request'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Path.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      description: Query Path model
+      operationId: pathGet
+      tags:
+        - Path
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  $ref: 'models/Path.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /path/{id}:
+    patch:
+      description: Update a Path (Civil work paths between Sites)
+      operationId: pathPatch
+      tags:
+        - Path
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: 'models/Path.json#/request'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Path.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      description: Destoy a Path (Civil work paths between Sites)
+      operationId: pathDelete
+      tags:
+        - Path
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Path.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      description: Get given Path information (Civil work paths between Sites)
+      operationId: pathGetOne
+      tags:
+        - Path
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Path.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /project:
+    post:
+      description: Post a Project
+      operationId: projectPost
+      tags:
+        - Project
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: 'models/Project.json#/request'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Project.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      description: Query Project model
+      operationId: projectGet
+      tags:
+        - Project
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  $ref: 'models/Project.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{id}:
+    patch:
+      description: Update a Project
+      operationId: projectPatch
+      tags:
+        - Project
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: project
+          name: id
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: 'models/Project.json#/request'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Project.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      description: Destoy a Project
+      operationId: projectDelete
+      tags:
+        - Project
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: project
+          name: id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Project.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      description: Get given Project information
+      operationId: projectGetOne
+      tags:
+        - Project
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: project
+          name: id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'models/Project.json#/response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/count:
+    get:
+      description: Get given Project information
+      operationId: projectGetOne
+      tags:
+        - Project
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  count:
+                    description: Number of projects
+                    type: integer
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /stats/project/{id}:
+    get:
+      description: Get statistics about fiberfy projects.
+      operationId: projectGetOne
+      tags:
+        - Statistics
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: project
+          name: id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsProjectResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /swagger:
     x-swagger-pipe: swagger_raw
 components:
@@ -275,6 +644,37 @@ components:
           items:
             type: object
             $ref: 'models/Path.json#/response'
+    ExportResponse:
+      type: object
+    StatsProjectResponse:
+      properties:
+        sites:
+          type: array
+          items:
+            type: object
+            properties:
+              location_type:
+                type: string
+              count:
+                type: number
+        paths:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              distance:
+                type: number
+        cables:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              distance:
+                type: number
     ErrorResponse:
       required:
         - msg

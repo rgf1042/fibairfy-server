@@ -72,6 +72,22 @@ function addAttributes (model, type, data) {
   }
 }
 
+function addCustomAttributes (model, type, data) {
+  let attributes;
+  try {
+    attributes = model._swagger.attributes.additions[type];
+  } catch (err) {
+    // Nothing
+    return;
+  }
+  for (let y in attributes) {
+    if (attributes.hasOwnProperty(y)) {
+      let attr = attributes[y];
+      data[type].properties[y] = attr;
+    }
+  }
+}
+
 var modelsDefaultAttributes = require(__dirname + '/config/models').models.attributes;
 
 for (let x in models) {
@@ -87,6 +103,9 @@ for (let x in models) {
 
     addAttributes(model, 'request', data);
     addAttributes(model, 'response', data);
+
+    addCustomAttributes(model, 'request', data);
+    addCustomAttributes(model, 'response', data);
 
     let filename = __dirname + '/assets/swagger/models/' + x + '.json';
     let json = JSON.stringify(data);
