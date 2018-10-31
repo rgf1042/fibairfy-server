@@ -60,5 +60,10 @@ module.exports.routes = {
   'GET /api/v1/stats/project/:id': 'StatsController.project',
 
   /* Swagger */
-  'GET /api-doc': 'SwaggerController.view'
+  'GET /api-doc': 'SwaggerController.view',
+
+  /* Maps */
+  'GET /api/v1/maps/': 'MapController.list',
+
+  'GET /api/v1/maps/wms/:id': 'MapController.wms'
 };

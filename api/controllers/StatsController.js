@@ -1,5 +1,5 @@
 /**
- * ProjectController
+ * StatsController
  *
  * @description :: Server-side logic for getting statistics
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
