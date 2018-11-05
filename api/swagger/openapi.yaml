@@ -487,7 +487,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - in: project
+        - in: path
           name: id
           schema:
             type: integer
@@ -519,7 +519,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - in: project
+        - in: path
           name: id
           schema:
             type: integer
@@ -544,7 +544,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - in: project
+        - in: path
           name: id
           schema:
             type: integer
@@ -594,7 +594,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - in: project
+        - in: path
           name: id
           schema:
             type: integer
@@ -605,6 +605,60 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StatsProjectResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /maps:
+    get:
+      description: Get map sources and layers.
+      operationId: mapsGetList
+      tags:
+        - Maps
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapListResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /maps/wms/{id}:
+    get:
+      description: Consume an internal WMS service.
+      operationId: mapsGetWMS
+      tags:
+        - Maps
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: Map id
+          schema:
+            type: integer
+        - in: query
+          name: token
+          description: Given JWT token to authorize operation
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            image/png:
+              schema:
+                 type: string
+                 format: binary
         default:
           description: Error
           content:
@@ -675,6 +729,41 @@ components:
                 type: string
               distance:
                 type: number
+    MapListResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          layers:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                description:
+                  type: string
+                isBase:
+                  type: boolean
+                options:
+                  type: object
+          id:
+            type: integer
+          name:
+            type: string
+          description:
+            type: string
+          type:
+            type: string
+            enum: [tiles, wms]
+          internal:
+            type: boolean
+          options:
+            type: object
+          url:
+            type: string
     ErrorResponse:
       required:
         - msg
