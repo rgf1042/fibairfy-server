@@ -21,6 +21,11 @@ module.exports.search = function(username, callback) {
     url: 'ldaps://ldap.guifi.net',
   });
 
+  client.on('error', function(err) {
+    callback({error: err});
+    console.log(err);
+  });
+
   client.bind('uid=' + ldap_user + ',o=glirusers,dc=guifi,dc=net',
   ldap_pass, function(err) { if (err) {
         if (err.lde_message == "Invalid Credentials" ){
@@ -37,7 +42,6 @@ module.exports.search = function(username, callback) {
         assert.ifError(err);
 
         res.on('searchEntry', function(entry) {
-          console.log('entry: ' + JSON.stringify(entry.object));
           data = entry.object;
         });
         res.on('error', function(err) {
@@ -63,6 +67,11 @@ module.exports.authenticate = function(credentials, callback) {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   var client = ldapjs.createClient({
     url: 'ldaps://ldap.guifi.net',
+  });
+
+  client.on('error', function(err) {
+    callback({error: err});
+    console.log(err);
   });
 
   client.bind('uid=' + credentials.username + ',o=glirusers,dc=guifi,dc=net',
