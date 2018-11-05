@@ -47,7 +47,7 @@ module.exports = {
       return res.status(401).json({flag: false, message: 'username and password required'});
     }
     ldap.search(username, function (data) {
-      if (data.err) res.status(401).json({flag: false, message: data.error});
+      if (data.error) return res.status(401).json({flag: false, message: data.error});
       if (data.cn === 'lectura') {
         ldap.authenticate({username: username, password: password}, function (auth) {
           if (auth.error) {
