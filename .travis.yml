@@ -10,3 +10,6 @@ before_install:
 
 script:
 - ./script.sh
+
+after_script:
+- docker-compose down -v

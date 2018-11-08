@@ -36,6 +36,7 @@
     "sails-hook-sockets": "^1.5.3",
     "sails-mysql": "^1.0.0",
     "swagger-ui": "^3.19.3",
+    "togeojson": "^0.16.0",
     "uuid": "^3.3.2",
     "xmldom": "^0.1.27"
   },
