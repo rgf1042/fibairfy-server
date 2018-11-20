@@ -304,7 +304,7 @@ function importSites (data, project, zone, threshold) {
           })
         }
         else if (mime.lookup(uploadedFiles[0].fd) === mime.lookup('.kml')) {
-          let data = processKML(fs.readFileSync(uploadedFiles[0].fd, 'utf8'))
+          let data = processKML(uploadedFiles[0].fd)
           importSites(data, req.body.project, req.body.defaultZone, threshold).then(response => {
             return res.json(response)
           }, error => {
