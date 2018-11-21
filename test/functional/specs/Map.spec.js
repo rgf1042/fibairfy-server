@@ -85,7 +85,7 @@ const WELL_ANSWER = [
         'options': {
             'crs': 'EPSG:3857'
         },
-        'url': 'http://localhost:1337/api/v1/maps/wms/1'
+        'url': 'http://localhost:1337/api/v1/maps/wms/auth/1'
     },
     {
         'layers': [
@@ -216,7 +216,7 @@ const WELL_ANSWER_NOAUTH = [
         'options': {
             'crs': 'EPSG:3857'
         },
-        'url': 'http://localhost:1337/api/v1/maps/wms/1'
+        'url': 'http://localhost:1337/api/v1/maps/wms/auth/1'
     },
     {
         'layers': [
