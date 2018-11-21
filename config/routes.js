@@ -63,7 +63,11 @@ module.exports.routes = {
   'GET /api-doc': 'SwaggerController.view',
 
   /* Maps */
-  'GET /api/v1/maps/': 'MapController.list',
+  'GET /api/v1/maps/auth': 'MapController.listAuth',
 
-  'GET /api/v1/maps/wms/:id': 'MapController.wms'
+  'GET /api/v1/maps/noauth': 'MapController.listNoAuth',
+
+  'GET /api/v1/maps/wms/auth/:id': 'MapController.wmsAuth',
+
+  'GET /api/v1/maps/wms/noauth/:id': 'MapController.wmsNoAuth'
 };

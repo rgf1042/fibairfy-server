@@ -611,10 +611,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /maps:
+  /maps/auth:
     get:
-      description: Get map sources and layers.
-      operationId: mapsGetList
+      description: Get all map sources and layers.
+      operationId: mapsGetListAuth
       tags:
         - Maps
       security:
@@ -632,14 +632,64 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /maps/wms/{id}:
+  /maps/noauth:
     get:
-      description: Consume an internal WMS service.
+      description: Get all map sources and layers with no authentication needed.
+      operationId: mapsGetListNoAuth
+      tags:
+        - Maps
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapListResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /maps/wms/auth/{id}:
+    get:
+      description: Consume an internal WMS service with authorization.
       operationId: mapsGetWMS
       tags:
         - Maps
       security:
         - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: Map id
+          schema:
+            type: integer
+        - in: query
+          name: token
+          description: Given JWT token to authorize operation
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            image/png:
+              schema:
+                 type: string
+                 format: binary
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /maps/wms/noauth/{id}:
+    get:
+      description: Consume an internal WMS service without authorization.
+      operationId: mapsGetWMS
+      tags:
+        - Maps
       parameters:
         - in: path
           name: id

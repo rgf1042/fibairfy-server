@@ -165,18 +165,24 @@ CREATE TABLE `fiberfy_map_layers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- We add new column to map_layers
+--
+
+ALTER TABLE `fiberfy_map_layers` ADD `auth` TINYINT(1) NULL AFTER `weight`;
+
+--
 -- Volcado de datos para la tabla `fiberfy_map_layers`
 --
 
-INSERT INTO `fiberfy_map_layers` (`createdAt`, `updatedAt`, `id`, `name`, `description`, `weight`, `isBase`, `options`, `map`) VALUES
-(1536921067925, 1536921067925, 1, 'Llocs', 'Obra cívil localitzacions', 50, 0, '{\"format\": \"image/png\",\"transparent\": true, \"version\": \"1.1.1\", \"uppercase\": true,\"layers\": \"Sites\",\"attribution\":\"Guifi.net FO\"}', 1),
-(1536921067925, 1536921067925, 2, 'Satelit', 'Vistes aeries Google Maps', 100, 1, '{\"subdomains\":[\"mt0\", \"mt1\", \"mt2\", \"mt3\"],\"path\":\"lyrs=s&x={x}&y={y}&z={z}\",\"attribution\":\"<a href=\\\"http://maps.google.es\\\">&copy; Google Maps</a> contributors\"}', 2),
-(1536921067925, 1536921067925, 3, 'Topografic', 'Topogràfic de Google Maps', 100, 1, '{\"subdomains\":[\"mt0\", \"mt1\", \"mt2\", \"mt3\"],\"path\":\"lyrs=p&x={x}&y={y}&z={z}\",\"attribution\":\"<a href=\\\"http://maps.google.es\\\">&copy; Google Maps</a> contributors\"}', 2),
-(1536921067925, 1536921067925, 4, 'Viari', 'Mapa viari de Google Maps', 100, 1, '{\"subdomains\":[\"mt0\", \"mt1\", \"mt2\", \"mt3\"],\"path\":\"lyrs=m&x={x}&y={y}&z={z}\",\"attribution\":\"<a href=\\\"http://maps.google.es\\\">&copy; Google Maps</a> contributors\"}', 2),
-(1536921067925, 1536921067925, 5, 'Viari', 'Mapa viari d\'OpenStreetMap.org', 1, 1, '{\"path\":\"{z}/{x}/{y}.png\",\"maxZoom\":20,\"attribution\":\"<a href=\\\"http://openstreetmap.org\\\">&copy; OpenStreetMap</a>, <a href=\\\"http://creativecommons.org/licenses/by-sa/2.0/\\\">CC-BY-SA</a>\"}', 3),
-(1536921067925, 1536921067925, 6, 'Trams de fibra', 'Obra civil trams', 60, 0, '{\"format\": \"image/png\",\"transparent\": true, \"version\": \"1.1.1\", \"uppercase\": true,\"layers\": \"Paths\",\"attribution\":\"Guifi.net FO\"}', 1),
-(1536921067925, 1536921067925, 7, 'Enllaços radio', 'Enllaços de radio de Guifi.net', 100, 0, '{\"format\": \"image/png\",\"transparent\": true, \"version\": \"1.1.1\", \"uppercase\": true,\"layers\": \"Links\",\"attribution\":\"Guifi.net Radio\"}', 1),
-(1536921067925, 1536921067925, 8, 'Nodes', 'Nodes de Guifi.net', 70, 0, '{\"format\": \"image/png\",\"transparent\": true, \"version\": \"1.1.1\", \"uppercase\": true,\"layers\": \"Nodes\",\"attribution\":\"Guifi.net Radio\"}', 1);
+INSERT INTO `fiberfy_map_layers` (`createdAt`, `updatedAt`, `id`, `name`, `description`, `weight`, `auth`, `isBase`, `options`, `map`) VALUES
+(1536921067925, 1536921067925, 1, 'Llocs', 'Obra cívil localitzacions', 50, 1, 0, '{\"format\": \"image/png\",\"transparent\": true, \"version\": \"1.1.1\", \"uppercase\": true,\"layers\": \"Sites\",\"attribution\":\"Guifi.net FO\"}', 1),
+(1536921067925, 1536921067925, 2, 'Satelit', 'Vistes aeries Google Maps', 100, 0, 1, '{\"subdomains\":[\"mt0\", \"mt1\", \"mt2\", \"mt3\"],\"path\":\"lyrs=s&x={x}&y={y}&z={z}\",\"attribution\":\"<a href=\\\"http://maps.google.es\\\">&copy; Google Maps</a> contributors\"}', 2),
+(1536921067925, 1536921067925, 3, 'Topografic', 'Topogràfic de Google Maps', 100, 0, 1, '{\"subdomains\":[\"mt0\", \"mt1\", \"mt2\", \"mt3\"],\"path\":\"lyrs=p&x={x}&y={y}&z={z}\",\"attribution\":\"<a href=\\\"http://maps.google.es\\\">&copy; Google Maps</a> contributors\"}', 2),
+(1536921067925, 1536921067925, 4, 'Viari', 'Mapa viari de Google Maps', 100, 0, 1, '{\"subdomains\":[\"mt0\", \"mt1\", \"mt2\", \"mt3\"],\"path\":\"lyrs=m&x={x}&y={y}&z={z}\",\"attribution\":\"<a href=\\\"http://maps.google.es\\\">&copy; Google Maps</a> contributors\"}', 2),
+(1536921067925, 1536921067925, 5, 'Viari', 'Mapa viari d\'OpenStreetMap.org', 1, 0, 1, '{\"path\":\"{z}/{x}/{y}.png\",\"maxZoom\":20,\"attribution\":\"<a href=\\\"http://openstreetmap.org\\\">&copy; OpenStreetMap</a>, <a href=\\\"http://creativecommons.org/licenses/by-sa/2.0/\\\">CC-BY-SA</a>\"}', 3),
+(1536921067925, 1536921067925, 6, 'Trams de fibra', 'Obra civil trams', 60, 1, 0, '{\"format\": \"image/png\",\"transparent\": true, \"version\": \"1.1.1\", \"uppercase\": true,\"layers\": \"Paths\",\"attribution\":\"Guifi.net FO\"}', 1),
+(1536921067925, 1536921067925, 7, 'Enllaços radio', 'Enllaços de radio de Guifi.net', 100, 0, 0, '{\"format\": \"image/png\",\"transparent\": true, \"version\": \"1.1.1\", \"uppercase\": true,\"layers\": \"Links\",\"attribution\":\"Guifi.net Radio\"}', 1),
+(1536921067925, 1536921067925, 8, 'Nodes', 'Nodes de Guifi.net', 70, 0, 0, '{\"format\": \"image/png\",\"transparent\": true, \"version\": \"1.1.1\", \"uppercase\": true,\"layers\": \"Nodes\",\"attribution\":\"Guifi.net Radio\"}', 1);
 
 -- --------------------------------------------------------
 

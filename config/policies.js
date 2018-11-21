@@ -62,6 +62,11 @@ module.exports.policies = {
     '*': true
   },
 
+  'MapController': {
+    '*': ['isAuthorized', 'logger'],
+    'listNoAuth': true,
+    'wmsNoAuth': true
+  },
   // ACL
   'BoxController': {
     'create': ['isAuthorized','canWrite'],
