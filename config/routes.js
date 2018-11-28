@@ -59,6 +59,8 @@ module.exports.routes = {
 
   'GET /api/v1/stats/project/:id': 'StatsController.project',
 
+  'PATCH /api/v1/project/globalStatus/': 'ProjectController.modifyGlobalStatus',
+
   /* Swagger */
   'GET /api-doc': 'SwaggerController.view',
 

@@ -47,6 +47,6 @@ module.exports.security = {
 
      allowRequestHeaders: 'content-type, Authorization',
      allRoutes: true,
-     allowOrigins: ['http://localhost:3000']
+     allowOrigins: '*'
    }
 };

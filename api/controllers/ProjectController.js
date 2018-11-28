@@ -50,5 +50,30 @@ module.exports = {
 			res.serverError(e);
 		}
 		res.ok({count: numRecords});
+	},
+	modifyGlobalStatus: async function (req, res) {
+		let id = req.param('id');
+		let status = req.param('status');
+		if (!id) {
+			return res.badRequest('No project id was supplied.');
+		}
+		if (!status) {
+			return res.badRequest('No status was supplied.');
+		}
+
+		try {
+			await Site.update({project: id}).set({status: status});
+			await Path.update({project: id}).set({status: status});
+			await Box.update({project: id}).set({status: status});
+			await Cable.update({project: id}).set({status: status});
+			await Project.update({id: id}).set({status: status});
+		} catch (err) {
+			console.log(err);
+			return res.serverError(err);
+		}
+
+		return res.json({
+			msg: 'Done'
+		});
 	}
 };
