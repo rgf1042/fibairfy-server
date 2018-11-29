@@ -95,9 +95,16 @@ module.exports = {
     }
 
     let apiProxy = httpProxy.createProxyServer(
-      {
-        ignorePath: false
-      });
+    {
+      ignorePath: false
+    });
+
+    // Catching errors
+    apiProxy.on('error', function (err, req, res) {
+      console.log(err);
+      return res.serverError({msg: err});
+    })
+
     apiProxy.web(req, res,
       {target: map[0].url + '&' + querystring.stringify(req.allParams())});
 	},
@@ -118,9 +125,16 @@ module.exports = {
     }
 
     let apiProxy = httpProxy.createProxyServer(
-      {
-        ignorePath: false
-      });
+    {
+      ignorePath: false
+    });
+
+    // Catching errors
+    apiProxy.on('error', function (err, req, res) {
+      console.log(err);
+      return res.serverError({msg: err});
+    })
+
     apiProxy.web(req, res,
       {target: map[0].url + '&' + querystring.stringify(req.allParams())});
   },
