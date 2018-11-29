@@ -45,6 +45,8 @@ var path = {
   observations: 'Testing!'
 }
 
+const newStatus = 'Working'
+
 describe('Civil', function() {
   before( function (done) {
     auth.createUser(username, passwd, function (err) {
@@ -174,6 +176,42 @@ describe('Civil', function() {
           chai.assert.equal(path.distance, newDistance)
           done()
         })
+      })
+  })
+
+  it ('should update status attributtes globally (project)', async function (done) {
+    // Get counters
+    let countSites, countPaths
+    try {
+      countSites = await Site.count({project: projectId})
+      countPaths = await Path.count({project: projectId})
+    } catch (err) {
+      return done(err)
+    }
+
+    request(sails.hooks.http.app)
+      .patch('/api/v1/project/globalStatus')
+      .set('Authorization', 'bearer ' + authorization.token)
+      .send({
+        id: projectId,
+        status: newStatus
+      })
+      .end(async function(err, response) {
+        if (err) return done(err)
+        chai.assert.equal(response.body.msg, 'Done')
+        let countSitesAfter, countPathsAfter
+
+        try {
+          countSitesAfter = await Site.count({project: projectId, status: newStatus})
+          countPathsAfter = await Path.count({project: projectId, status: newStatus})
+        } catch (err) {
+          return done(err)
+        }
+        // We test same counters
+        chai.assert.equal(countSites, countSitesAfter)
+        chai.assert.equal(countPaths, countPathsAfter)
+
+        done()
       })
   })
 
