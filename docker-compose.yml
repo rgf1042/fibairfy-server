@@ -1,0 +1,13 @@
+version: "2"
+services:
+  database:
+    image: "mariadb"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: fibairfydev
+      MYSQL_USER: fibairfy
+      MYSQL_PASSWORD: fibairfy
+    volumes:
+      - ./test/assets/guifitest.sql:/docker-entrypoint-initdb.d/dump.sql
+    ports:
+      - 3306:3306
