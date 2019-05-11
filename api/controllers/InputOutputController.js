@@ -10,8 +10,8 @@ const fs = require('fs')
 const DOMParser = require('xmldom').DOMParser
 const mime = require('mime-types')
 const geolib = require('geolib')
-const unzip = require('unzip')
 const uuidv1 = require('uuid/v1')
+const unzipper = require('unzipper')
 
 function processKML (path) {
   let data = fs.readFileSync(path, 'utf8')
@@ -273,11 +273,9 @@ function importSites (data, project, zone, threshold) {
         let threshold = (Number.isInteger(req.body.threshold) && req.body.threshold > 0) ? req.body.threshold : 10
         if (mime.lookup(uploadedFiles[0].fd) === mime.lookup('.kmz')) {
           fs.createReadStream(uploadedFiles[0].fd)
-            .pipe(unzip.Parse())
+            .pipe(unzipper.Parse())
             .on('entry', function (entry) {
               var fileName = entry.path
-              var type = entry.type // 'Directory' or 'File'
-              var size = entry.size
               if (fileName === 'doc.kml') {
                 entry.pipe(fs.createWriteStream(uploadedFiles[0].fd + '.kml'))
                   .on('close', function () {

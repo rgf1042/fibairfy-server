@@ -118,3 +118,6 @@ nbproject
 .idea
 .node_history
 INSTALLED
+
+# Database
+db/*
