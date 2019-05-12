@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-  view: function (req, res) {
-    return res.view('swagger');
-  }
+    view: function(req, res) {
+        return res.view('swagger');
+    },
 };

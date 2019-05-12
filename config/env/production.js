@@ -11,30 +11,28 @@
  */
 
 module.exports = {
+    /***************************************************************************
+     * Set the default database connection for models in the production        *
+     * environment (see config/connections.js and config/models.js )           *
+     ***************************************************************************/
 
-  /***************************************************************************
-   * Set the default database connection for models in the production        *
-   * environment (see config/connections.js and config/models.js )           *
-   ***************************************************************************/
+    models: {
+        datastore: 'production',
+    },
+    sockets: {
+        onlyAllowOrigins: ['http://localhost:1337'],
+    },
+    /***************************************************************************
+     * Set the port in the production environment to 80                        *
+     ***************************************************************************/
 
-   models: {
-     datastore: 'production'
-   },
-   sockets: {
-     onlyAllowOrigins: ['http://localhost:1337']
-   }
-  /***************************************************************************
-   * Set the port in the production environment to 80                        *
-   ***************************************************************************/
+    // port: 80,
 
-  // port: 80,
+    /***************************************************************************
+     * Set the log level in production environment to "silent"                 *
+     ***************************************************************************/
 
-  /***************************************************************************
-   * Set the log level in production environment to "silent"                 *
-   ***************************************************************************/
-
-  // log: {
-  //   level: "silent"
-  // }
-
+    // log: {
+    //   level: "silent"
+    // }
 };

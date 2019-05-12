@@ -4,13 +4,13 @@
  */
 
 module.exports = {
-  tableName: 'fiberfy_projects_ownership',
-  attributes: {
-    project: {
-      model: 'Project'
+    tableName: 'fiberfy_projects_ownership',
+    attributes: {
+        project: {
+            model: 'Project',
+        },
+        user: {
+            model: 'User',
+        },
     },
-    user: {
-      model: 'User'
-    },
-  }
 };

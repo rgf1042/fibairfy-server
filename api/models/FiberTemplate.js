@@ -4,14 +4,13 @@
  */
 
 module.exports = {
-  tableName: 'fiberfy_fibertemplates',
-  attributes: {
-    name: {
-      type: 'string'
+    tableName: 'fiberfy_fibertemplates',
+    attributes: {
+        name: {
+            type: 'string',
+        },
+        data: {
+            type: 'json',
+        },
     },
-    data: {
-      type: 'json'
-    },
-
-  }
-}
+};

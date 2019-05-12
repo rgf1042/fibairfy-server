@@ -3,42 +3,40 @@
  */
 
 module.exports.datastores = {
+    // In previous versions, datastores (then called 'connections') would only be loaded
+    // if a model was actually using them.  Starting with Sails 1.0, _all_ configured
+    // datastores will be loaded, regardless of use.  So we'll only include datastores in
+    // this file that were actually being used.  Your original `connections` config is
+    // still available as `config/connections-old.js.txt`.
 
-  // In previous versions, datastores (then called 'connections') would only be loaded
-  // if a model was actually using them.  Starting with Sails 1.0, _all_ configured
-  // datastores will be loaded, regardless of use.  So we'll only include datastores in
-  // this file that were actually being used.  Your original `connections` config is
-  // still available as `config/connections-old.js.txt`.
+    /***************************************************************************
+     *                                                                          *
+     * Local disk storage for DEVELOPMENT ONLY                                  *
+     *                                                                          *
+     * Installed by default.                                                    *
+     *                                                                          *
+     ***************************************************************************/
+    testing: {
+        adapter: 'sails-mysql',
+        host: 'database',
+        user: 'fibairfy',
+        password: 'fibairfy',
+        database: 'fibairfytest',
+    },
 
-  /***************************************************************************
-  *                                                                          *
-  * Local disk storage for DEVELOPMENT ONLY                                  *
-  *                                                                          *
-  * Installed by default.                                                    *
-  *                                                                          *
-  ***************************************************************************/
-  testing: {
-    adapter: 'sails-mysql',
-    host: 'database',
-    user: 'fibairfy',
-    password: 'fibairfy',
-    database: 'fibairfytest'
-  },
-
-  /***************************************************************************
-  *                                                                          *
-  * MySQL is the world's most popular relational database.                   *
-  * http://en.wikipedia.org/wiki/MySQL                                       *
-  *                                                                          *
-  * Run: npm install sails-mysql                                             *
-  *                                                                          *
-  ***************************************************************************/
-  default: {
-     adapter: 'sails-mysql',
-     host: 'localhost',
-     user: 'fibairfy',
-     password: 'fibairfy',
-     database: 'fibairfydev'
-  }
-
+    /***************************************************************************
+     *                                                                          *
+     * MySQL is the world's most popular relational database.                   *
+     * http://en.wikipedia.org/wiki/MySQL                                       *
+     *                                                                          *
+     * Run: npm install sails-mysql                                             *
+     *                                                                          *
+     ***************************************************************************/
+    default: {
+        adapter: 'sails-mysql',
+        host: 'localhost',
+        user: 'fibairfy',
+        password: 'fibairfy',
+        database: 'fibairfydev',
+    },
 };

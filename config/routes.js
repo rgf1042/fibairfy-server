@@ -21,55 +21,53 @@
  */
 
 module.exports.routes = {
+    /***************************************************************************
+     *                                                                          *
+     * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
+     * etc. depending on your default view engine) your home page.              *
+     *                                                                          *
+     * (Alternatively, remove this and add an `index.html` file in your         *
+     * `assets` directory)                                                      *
+     *                                                                          *
+     ***************************************************************************/
 
-  /***************************************************************************
-  *                                                                          *
-  * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-  * etc. depending on your default view engine) your home page.              *
-  *                                                                          *
-  * (Alternatively, remove this and add an `index.html` file in your         *
-  * `assets` directory)                                                      *
-  *                                                                          *
-  ***************************************************************************/
+    /***************************************************************************
+     *                                                                          *
+     * Custom routes here...                                                    *
+     *                                                                          *
+     * If a request to a URL doesn't match any of the custom routes above, it   *
+     * is matched against Sails route blueprints. See `config/blueprints.js`    *
+     * for configuration options and examples.                                  *
+     *                                                                          *
+     ***************************************************************************/
+    'POST /auth/login': 'AuthController.login',
 
+    'POST /auth/loginLDAP': 'AuthController.loginLDAP',
 
-  /***************************************************************************
-  *                                                                          *
-  * Custom routes here...                                                    *
-  *                                                                          *
-  * If a request to a URL doesn't match any of the custom routes above, it   *
-  * is matched against Sails route blueprints. See `config/blueprints.js`    *
-  * for configuration options and examples.                                  *
-  *                                                                          *
-  ***************************************************************************/
-  'POST /auth/login': 'AuthController.login',
+    /* IO */
+    'POST /api/v1/import': 'InputOutputController.imports',
 
-  'POST /auth/loginLDAP': 'AuthController.loginLDAP',
+    'GET /api/v1/export/:id': 'InputOutputController.exports',
 
+    'GET /api/v1/export/all': 'InputOutputController.exportsAll',
 
-  /* IO */
-  'POST /api/v1/import': 'InputOutputController.imports',
+    /* Project */
+    'GET /api/v1/project/count': 'ProjectController.count',
 
-  'GET /api/v1/export/:id': 'InputOutputController.exports',
+    'GET /api/v1/stats/project/:id': 'StatsController.project',
 
-  'GET /api/v1/export/all': 'InputOutputController.exportsAll',
+    'PATCH /api/v1/project/globalStatus/':
+        'ProjectController.modifyGlobalStatus',
 
-  /* Project */
-  'GET /api/v1/project/count': 'ProjectController.count',
+    /* Swagger */
+    'GET /api-doc': 'SwaggerController.view',
 
-  'GET /api/v1/stats/project/:id': 'StatsController.project',
+    /* Maps */
+    'GET /api/v1/maps/auth': 'MapController.listAuth',
 
-  'PATCH /api/v1/project/globalStatus/': 'ProjectController.modifyGlobalStatus',
+    'GET /api/v1/maps/noauth': 'MapController.listNoAuth',
 
-  /* Swagger */
-  'GET /api-doc': 'SwaggerController.view',
+    'GET /api/v1/maps/wms/auth/:id': 'MapController.wmsAuth',
 
-  /* Maps */
-  'GET /api/v1/maps/auth': 'MapController.listAuth',
-
-  'GET /api/v1/maps/noauth': 'MapController.listNoAuth',
-
-  'GET /api/v1/maps/wms/auth/:id': 'MapController.wmsAuth',
-
-  'GET /api/v1/maps/wms/noauth/:id': 'MapController.wmsNoAuth'
+    'GET /api/v1/maps/wms/noauth/:id': 'MapController.wmsNoAuth',
 };

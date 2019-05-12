@@ -4,19 +4,19 @@
  */
 
 module.exports = {
-  tableName: 'fiberfy_fusions',
-  attributes: {
-    site: {
-      model: 'Site'
+    tableName: 'fiberfy_fusions',
+    attributes: {
+        site: {
+            model: 'Site',
+        },
+        fdata: {
+            type: 'json',
+        },
+        sdata: {
+            type: 'json',
+        },
+        project: {
+            model: 'Project',
+        },
     },
-    fdata: {
-      type: 'json'
-    },
-    sdata: {
-      type: 'json'
-    },
-    project: {
-      model: 'Project'
-    }
-  }
 };

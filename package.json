@@ -44,7 +44,8 @@
   "scripts": {
     "test": "eslint --ignore-pattern '/client/' --ignore-pattern '/assets/' --ignore-pattern 'app.js' . && eslint --no-eslintrc -c client/eslintrc.json client/. && NODE_ENV=test node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/bootstrap.test.js test/**/*.spec.js",
     "test-dev": "NODE_ENV=test node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/**/*.spec.js",
-    "doc": "cp node_modules/swagger-ui/dist/swagger-ui.css assets/css/ && cp api/swagger/openapi.yaml assets/swagger/ && node doc.js && cd api/swagger && browserify swagger.js -o ../../assets/js/bundle.js"
+    "doc": "cp node_modules/swagger-ui/dist/swagger-ui.css assets/css/ && cp api/swagger/openapi.yaml assets/swagger/ && node doc.js && cd api/swagger && browserify swagger.js -o ../../assets/js/bundle.js",
+    "format": "prettier --write \"**/*.js\""
   },
   "main": "app.js",
   "repository": "rgf1042/fibairfy-server",
@@ -59,6 +60,7 @@
     "geojson": "^0.5.0",
     "geolib": "^2.0.24",
     "mocha": "^6.1",
+    "prettier": "1.17.0",
     "supertest": "^4.0",
     "uglifyjs": "^2.4.11",
     "watchify": "^3.11.1"
