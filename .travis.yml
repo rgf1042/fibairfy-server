@@ -6,6 +6,7 @@ services:
   - docker
 
 before_install:
+- sudo service mysql stop
 - docker-compose -f ./test/docker-compose.yml up -d
 # Wait for database being ready
 - while ! echo exit | nc localhost 3306; do sleep 10; done
