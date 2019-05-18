@@ -1,25 +1,22 @@
 language: node_js
 node_js:
-  - "10"
-
+- '10'
 services:
-  - docker
-
+- docker
 before_install:
 - sudo service mysql stop
 - docker-compose -f ./test/docker-compose.yml up -d
-# Wait for database being ready
 - while ! echo exit | nc localhost 3306; do sleep 10; done
 - npm install
-
-
 script:
 - npm run test-dev
-
 deploy:
   provider: script
   skip_cleanup: true
-  script: './publish.sh'
+  script: "./publish.sh"
   on:
     tags: true
-    branch: master
+env:
+  global:
+  - secure: psxifRHjrYOilFt/TmCaAKi1hV9pz4jiKK3CrFWcC9WDJWdo/TRAdY5XO3xiwqRZuHwz8WYBOZ157b2TRnsJElQSlmAr0OvrSYVxCkgtqWAsAE8k/5NSsSiDysW3xyTfD7aQtfNCBgVRGX93WxBmcXjVFaJqsdNaKUUvBIQOO+YxZF0rB8uI5vMgmNzO/+mfcw4neSGw3SW22UqN3j7StSuR7kDeSpWUIN1BeU4fT6TtiQXyE8tcpvXpCspb/Lglv0GxbjooU5YtuqQ3gadLIk6Kg68QdzvWHzlYd6giEuVkb9qN+Eoaode2Q5ztItVo45HXOVuOXkgakU2P1n1Je4+0erkrUJr15XaB/ZWfApiY3pdyZjn5Fo6gwNMxB2gDDDhVlzRw+ffp2/wkCySmynylHAmMdFykRlmemXYapvzdVDVz9Be0rLJ7ZIv/fSX7VgSQF/VsZwK1S38zlOijAJcpeLe36br46yI4IT9qPglkQOlzxps3FVeBQc+J/muEVEBV3sLVJ+tP864vBvuMsWFCXouHfBWoqJOuaKzyaWGRI/OMwemnipkKIvvFWrNsrgBOMFWKI6yYha9XQDOwOeqNFQ2JLUZjZdSYTJDCYB/M26tnbyiygw0dyvjaILBmwmZ/xeqfoKrDXlOuvbcXmreHAZkIzeXjVt2iJl3xJh0=
+  - secure: hX3DO/vUFY8+7oQLlVh1sCo4frFfZYNGt4oA/azgJrnqc/ql2x9GKNHFEGPzv4jziCna0V9qs8WSryk9alyU0tsXlrP/u6LY5E9eVQggg+Jq48GSCGNZ5SsqSiDwGkyWspCAcVE7d4cv7tJ4g9G4M5Y96Yh0piyJquwaerc7L5gs6SbiKUaPjwDFUL4HAQJ+R0aHojQWxPY5/dQtrEZjCyqO9rMx+3zRnlCHtegdlF9OtVUwIlAuRCzqBpIt53e2myO2Vj2N4z7N4rnfW3Y79YSqpb56ohs86hCe8h2EPB9n4talH5jr3oUEN4jqdtOPyHOfRJjzgSzW3jxwASVumjl/WrVQZuH/B0m0mno27gytRCRJHJ8vDBoexgXqCCIoblOvPxYjXmFUJqrmIBUGB+fo7hIDPpoNZbMeZ6JLebHyoLLzzF4+2RFe3UAzMtqvXaYBkPkTkxUhwEL3ObzV2ESO61hLmuPgky17KU3nLacQknA/SVgOkeHURe3qjhttV411ZzBzZW/vmp1KgorvoJNu0MGaMeHQW4mt/cR1OsHUKB7LFLr7ICwZZ7J3kREl6t3pOqExU7zNwtIMoEiSiHiiPt5r66NJuCF7cHhbd1xOWB1Q0qD8XiKpOQF/7pQ3h8Q9j33KLZJElqcaPg4ZJPK84izVn7WiPkzI6ZhgB3o=
