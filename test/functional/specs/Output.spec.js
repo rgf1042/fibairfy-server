@@ -18,15 +18,6 @@ const name = 'export';
 var id;
 
 // Functions
-function eraseContent(project, callback) {
-    Site.destroy({
-        project: project,
-    }).exec(function(err) {
-        if (err) callback(err);
-        callback();
-    });
-}
-
 function importProject(done) {
     request(sails.hooks.http.app)
         .post('/api/v1/import')
@@ -136,22 +127,14 @@ describe('Output', function() {
             });
     });
 
-    it('should export a feature array with equal size (all)', async function(done) {
+    it('should export a feature array with equal size (all)', async function() {
         let number = 0;
-        try {
-            number = await Path.count();
-            number += await Site.count();
-        } catch (err) {
-            return done(err);
-        }
-        request(sails.hooks.http.app)
+        number = await Path.count();
+        number += await Site.count();
+        
+        const response = await request(sails.hooks.http.app)
             .get('/api/v1/export/all')
-            .set('Authorization', 'bearer ' + authorization.token)
-            .end(function(err, response) {
-                if (err) return done(err);
-                // First we test sizes between number and response
-                chai.assert.strictEqual(number, response.body.features.length);
-                done();
-            });
+            .set('Authorization', 'bearer ' + authorization.token);    
+        chai.assert.strictEqual(number, response.body.features.length);
     });
 });

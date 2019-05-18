@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - "10"
+
+services:
+  - docker
+
+before_install:
+- docker-compose -f ./test/docker-compose.yml up -d
+# Wait for database being ready
+- while ! echo exit | nc localhost 3306; do sleep 10; done
+- npm run install
+
+
+script:
+- npm run test
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: './publish.sh'
+  on:
+    tags: true
+    branch: master

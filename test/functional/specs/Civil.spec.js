@@ -191,50 +191,34 @@ describe('Civil', function() {
             });
     });
 
-    it('should update status attributtes globally (project)', async function(done) {
+    it('should update status attributtes globally (project)', async function() {
         // Get counters
-        let countSites, countPaths;
-        try {
-            countSites = await Site.count({ project: projectId });
-            countPaths = await Path.count({ project: projectId });
-        } catch (err) {
-            return done(err);
-        }
-
-        request(sails.hooks.http.app)
+        const countSites = await Site.count({ project: projectId });
+        const countPaths = await Path.count({ project: projectId });
+        
+        const response = await request(sails.hooks.http.app)
             .patch('/api/v1/project/globalStatus')
             .set('Authorization', 'bearer ' + authorization.token)
             .send({
                 id: projectId,
                 status: newStatus,
-            })
-            .end(async function(err, response) {
-                if (err) return done(err);
-                chai.assert.equal(response.body.msg, 'Done');
-                let countSitesAfter, countPathsAfter;
-
-                try {
-                    countSitesAfter = await Site.count({
-                        project: projectId,
-                        status: newStatus,
-                    });
-                    countPathsAfter = await Path.count({
-                        project: projectId,
-                        status: newStatus,
-                    });
-                } catch (err) {
-                    return done(err);
-                }
-                // We test same counters
-                chai.assert.equal(countSites, countSitesAfter);
-                chai.assert.equal(countPaths, countPathsAfter);
-
-                done();
             });
+        chai.assert.equal(response.body.msg, 'Done');
+    
+        const countSitesAfter = await Site.count({
+            project: projectId,
+            status: newStatus,
+        });
+        const countPathsAfter = await Path.count({
+            project: projectId,
+            status: newStatus,
+        });
+        // We test same counters
+        chai.assert.equal(countSites, countSitesAfter);
+        chai.assert.equal(countPaths, countPathsAfter);
     });
 
     it('should destroy a site', function(done) {
-        let newName = 'siteTest1Mod';
         request(sails.hooks.http.app)
             .delete('/api/v1/site/' + site1.id)
             .set('Authorization', 'bearer ' + authorization.token)

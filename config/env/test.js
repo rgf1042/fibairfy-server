@@ -4,6 +4,6 @@ module.exports = {
     },
     models: {
         datastore: 'testing',
-        migrate: 'alter',
+        migrate: 'safe',
     },
 };

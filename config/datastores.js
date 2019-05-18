@@ -18,7 +18,7 @@ module.exports.datastores = {
      ***************************************************************************/
     testing: {
         adapter: 'sails-mysql',
-        host: 'database',
+        host: 'localhost',
         user: 'fibairfy',
         password: 'fibairfy',
         database: 'fibairfytest',
@@ -39,4 +39,12 @@ module.exports.datastores = {
         password: 'fibairfy',
         database: 'fibairfydev',
     },
+
+    production: {
+        adapter: 'sails-mysql',
+        host: 'localhost',
+        user: 'fibairfy',
+        password: 'fibairfy',
+        database: 'fibairfy',
+    }
 };

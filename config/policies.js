@@ -47,7 +47,7 @@ module.exports.policies = {
     // feed : ['isNiceToAnimals', 'hasRabbitFood']
     // }
 
-    '*': ['isAuthorized', 'logger'], // Everything resctricted here
+    '*': ['isAuthorized'], // Everything resctricted here
     UserController: {
         create: true, // We dont need authorization here, allowing public access
     },
@@ -61,7 +61,7 @@ module.exports.policies = {
     },
 
     MapController: {
-        '*': ['isAuthorized', 'logger'],
+        '*': ['isAuthorized'],
         listNoAuth: true,
         wmsNoAuth: true,
     },
