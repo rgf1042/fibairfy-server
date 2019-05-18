@@ -46,5 +46,5 @@ module.exports.datastores = {
         user: 'fibairfy',
         password: 'fibairfy',
         database: 'fibairfy',
-    }
+    },
 };

@@ -11,12 +11,10 @@ module.exports = {
         var password = req.param('password');
 
         if (!username || !password) {
-            return res
-                .status(401)
-                .json({
-                    flag: false,
-                    message: 'username and password required',
-                });
+            return res.status(401).json({
+                flag: false,
+                message: 'username and password required',
+            });
         }
 
         User.findOne({ username: username }, function(message, user) {
@@ -59,12 +57,10 @@ module.exports = {
         var password = req.param('password');
 
         if (!username || !password) {
-            return res
-                .status(401)
-                .json({
-                    flag: false,
-                    message: 'username and password required',
-                });
+            return res.status(401).json({
+                flag: false,
+                message: 'username and password required',
+            });
         }
         ldap.search(username, function(data) {
             if (data.error)

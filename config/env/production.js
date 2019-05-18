@@ -18,7 +18,7 @@ module.exports = {
 
     models: {
         datastore: 'production',
-        migrate: 'safe'
+        migrate: 'safe',
     },
     sockets: {
         onlyAllowOrigins: ['http://localhost:1337'],

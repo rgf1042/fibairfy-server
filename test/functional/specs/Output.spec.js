@@ -131,10 +131,10 @@ describe('Output', function() {
         let number = 0;
         number = await Path.count();
         number += await Site.count();
-        
+
         const response = await request(sails.hooks.http.app)
             .get('/api/v1/export/all')
-            .set('Authorization', 'bearer ' + authorization.token);    
+            .set('Authorization', 'bearer ' + authorization.token);
         chai.assert.strictEqual(number, response.body.features.length);
     });
 });

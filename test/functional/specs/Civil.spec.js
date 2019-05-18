@@ -195,7 +195,7 @@ describe('Civil', function() {
         // Get counters
         const countSites = await Site.count({ project: projectId });
         const countPaths = await Path.count({ project: projectId });
-        
+
         const response = await request(sails.hooks.http.app)
             .patch('/api/v1/project/globalStatus')
             .set('Authorization', 'bearer ' + authorization.token)
@@ -204,7 +204,7 @@ describe('Civil', function() {
                 status: newStatus,
             });
         chai.assert.equal(response.body.msg, 'Done');
-    
+
         const countSitesAfter = await Site.count({
             project: projectId,
             status: newStatus,

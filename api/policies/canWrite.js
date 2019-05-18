@@ -31,20 +31,15 @@ module.exports = function(req, res, next) {
                 }).exec(function(err, projectowner) {
                     if (err) return res.negotiate(err);
                     if (!projectowner)
-                        return res
-                            .status(401)
-                            .json({
-                                err:
-                                    'This User is not authorized in this project!',
-                            });
+                        return res.status(401).json({
+                            err: 'This User is not authorized in this project!',
+                        });
                     next();
                 });
             } else {
-                return res
-                    .status(401)
-                    .json({
-                        err: 'This User is not authorized in this project!',
-                    });
+                return res.status(401).json({
+                    err: 'This User is not authorized in this project!',
+                });
             }
         });
     } else {
@@ -61,11 +56,9 @@ module.exports = function(req, res, next) {
         }).exec(function(err, projectowner) {
             if (err) return res.negotiate(err);
             if (!projectowner)
-                return res
-                    .status(401)
-                    .json({
-                        err: 'This User is not authorized in this project!',
-                    });
+                return res.status(401).json({
+                    err: 'This User is not authorized in this project!',
+                });
             next();
         });
     }
