@@ -40,9 +40,9 @@ module.exports.routes = {
      * for configuration options and examples.                                  *
      *                                                                          *
      ***************************************************************************/
-    'POST /auth/login': 'AuthController.login',
+    'POST /api/v1/auth/login': 'AuthController.login',
 
-    'POST /auth/loginLDAP': 'AuthController.loginLDAP',
+    'POST /api/v1/auth/loginLDAP': 'AuthController.loginLDAP',
 
     /* IO */
     'POST /api/v1/import': 'InputOutputController.imports',
