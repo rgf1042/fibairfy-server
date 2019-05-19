@@ -1,5 +1,10 @@
-# fiberfy-server
+# fibairfy-server
 
-[![Build Status](https://travis-ci.org/guifi/fiberfy-server.svg?branch=master)](https://travis-ci.org/guifi/fiberfy-server)
+[![Build Status](https://travis-ci.org/rgf1042/fibairfy-server.svg?branch=master)](https://travis-ci.org/rgf1042/fibairfy-server)
 
-New fiberfy backend based on sailsjs and nodejs.
+fibairfy backend written using node.js
+
+## Copyright
+This software is licensed under the terms of GNU AGPLv3 License included in this repository.
+
+Copyright Agustí Moll 2016-2018, Roger Garcia 2017-2019
